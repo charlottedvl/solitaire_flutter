@@ -11,11 +11,11 @@ class ColoredStack extends StackCard {
 
   @override
   bool isCardAddable(card) {
-    if (color == card.getColor()) {
-      if ((stack.isEmpty && card.value == 1) ||
-          (stack.isNotEmpty && card.value == (stack.last.value + 1))) {
-        return true;
-      }
+    if ((stack.isEmpty && card.value == 1)) {
+      return true;
+    } else if (color?.getColorCardName() == card.getColor().getColorCardName() &&
+        (stack.isNotEmpty && card.value == (stack.last.value + 1))) {
+      return true;
     }
     return false;
   }
