@@ -47,7 +47,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
                   dragAnchorStrategy: pointerDragAnchorStrategy,
                   onDragCompleted: () {
                     column.columnDraggableCard.pop();
-                    column.columnHiddenCard.getStack().last.setIsVisible(true);
+                    column.testEmptyColumnDraggableCard();
                     setState(() { });
                   },
                   feedback: CardView(card: card),

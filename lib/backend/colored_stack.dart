@@ -12,11 +12,20 @@ class ColoredStack extends StackCard {
   @override
   bool isCardAddable(card) {
     if ((stack.isEmpty && card.value == 1)) {
+      color = card.color;
       return true;
     } else if (color?.getColorCardName() == card.getColor().getColorCardName() &&
         (stack.isNotEmpty && card.value == (stack.last.value + 1))) {
       return true;
     }
     return false;
+  }
+
+  void testIfEmpty() {
+    if (stack.isNotEmpty) {
+      stack.last.setIsVisible(true);
+    } else {
+      color = null;
+    }
   }
 }
