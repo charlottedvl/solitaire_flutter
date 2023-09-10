@@ -1,48 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:solitaire/backend/deck.dart';
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widget/card_view.dart';
 
-class PlayingCardDeckView extends StatelessWidget {
-  List<PlayingCard> discardDeck;
-  List<PlayingCard> displayDeck = <PlayingCard>[];
+class PlayingCardDeckView extends StatefulWidget {
+  Deck displayDeck;
 
-  PlayingCardDeckView(this.discardDeck, {super.key});
+  PlayingCardDeckView(this.displayDeck, {super.key});
+
+  @override
+  PlayingCardDeckViewState createState() => PlayingCardDeckViewState();
+}
+
+class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
+  late Deck displayDeck;
+
+  @override
+  void initState() {
+    super.initState();
+    displayDeck = widget.displayDeck;
+  }
+
+  void updateParentState() {
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    int numberCards = 3;
     double spacing = 25.0;
     double height = 79.0;
 
-    int length = discardDeck.length;
+    int length = displayDeck.length;
 
-    if (length == 3) {
-      displayDeck.add(discardDeck[length - 3]);
-      displayDeck.add(discardDeck[length - 2]);
-      displayDeck.add(discardDeck.last);
-    } else if (length == 2) {
-      displayDeck.add(discardDeck[length - 2]);
-      displayDeck.add(discardDeck.last);
-    } else if (length == 1) {
-      displayDeck.add(discardDeck.last);
-    }
+
 
     return SizedBox(
       height: height,
       width: 100.0,
       child: Stack(
         children: <Widget>[
-          for (int j = 0; j < length; j++) ...[
-            Positioned(
-              left: j * spacing,
-              child: j != numberCards - 1
-                  ? CardView(card: displayDeck[j])
-                  : Draggable<CardView>(
-                      dragAnchorStrategy: pointerDragAnchorStrategy,
-                      feedback: CardView(card: displayDeck[j]),
-                      child: CardView(card: displayDeck[j]),
-                    ),
-            ),
+          if (displayDeck.getStack().isNotEmpty) ...[
+            for (int j = 0; j < displayDeck.cardToShow; j++) ...[
+              Positioned(
+                  left: j * spacing,
+                  // TODO: Fix the position of element in stack
+                  child: j != displayDeck.cardToShow - 1
+                      ? CardView(card: displayDeck.getStack()[length - 3 + j])
+                      : Draggable<PlayingCard>(
+                    data: displayDeck.getStack()[length - 3 + j],
+                    dragAnchorStrategy: pointerDragAnchorStrategy,
+                    onDragCompleted: () {
+                      displayDeck.pop();
+                      setState(() { });
+                    },
+                    feedback: CardView(card: displayDeck.getStack()[length - 3 + j]),
+                    childWhenDragging:
+                    Opacity(opacity: 0.0, child: CardView()),
+                    child: CardView(card: displayDeck.getStack()[length - 3 + j]),
+                  )
+              ),
+            ],
           ],
         ],
       ),

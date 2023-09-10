@@ -17,6 +17,12 @@ BoardViewState createState() =>
 class BoardViewState extends State<BoardView> {
   Board board = Board();
 
+
+  void updatePlayingCardDeckView() {
+    setState(() {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
@@ -41,8 +47,8 @@ class BoardViewState extends State<BoardView> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DeckView(board.nextCardsDeck),
-                  PlayingCardDeckView(board.discardDeck),
+                  DeckView(board.nextCardsDeck, board.displayDeck, onPressedCallback: updatePlayingCardDeckView),
+                  PlayingCardDeckView(board.displayDeck),
                   ColoredStackView(board.stacks),
                 ]),
             const SizedBox(height: 5),
