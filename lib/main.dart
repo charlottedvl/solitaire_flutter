@@ -40,7 +40,7 @@ class MyAppState extends State<MyApp> {
               fit: BoxFit.cover,
             ),
           ),
-          child : children[selectedIndex],
+          child: children[selectedIndex],
         ),
         bottomNavigationBar: NavBar(
           selectedIndex: selectedIndex,

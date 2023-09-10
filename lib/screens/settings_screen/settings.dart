@@ -5,7 +5,6 @@ class Settings extends StatelessWidget {
     super.key,
   });
 
-
   @override
   Widget build(BuildContext context) {
     double padding = (MediaQuery.of(context).size.width) * 0.1;
@@ -14,17 +13,13 @@ class Settings extends StatelessWidget {
         child: const Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                  "Settings Screen",
+              Text("Settings Screen",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.purple,
                     fontSize: 2.0,
                   ),
-                  textScaleFactor: 30.0
-              ),
-            ]
-        )
-    );
+                  textScaleFactor: 30.0),
+            ]));
   }
 }

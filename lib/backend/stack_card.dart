@@ -1,20 +1,24 @@
-import 'dart:collection';
-
-class StackCard<PlayingCard> {
-  Queue<PlayingCard> stack = Queue<PlayingCard>();
+abstract class StackCard<PlayingCard> {
+  List<PlayingCard> stack = <PlayingCard>[];
 
   int get length => stack.length;
 
+  bool isCardAddable(PlayingCard card);
+
   bool canPop() => stack.isNotEmpty;
 
-  void clearStack(){
-    while(stack.isNotEmpty){
+  List<PlayingCard> getStack() {
+    return stack;
+  }
+
+  void clearStack() {
+    while (stack.isNotEmpty) {
       stack.removeLast();
     }
   }
 
   void push(PlayingCard card) {
-    stack.addLast(card);
+    stack.add(card);
   }
 
   PlayingCard pop() {
@@ -24,5 +28,4 @@ class StackCard<PlayingCard> {
   }
 
   PlayingCard peak() => stack.last;
-
 }

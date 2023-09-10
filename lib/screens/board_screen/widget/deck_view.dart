@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widget/card_view.dart';
 
 class DeckView extends StatelessWidget {
-  List<Card> deck = [];
+  List<PlayingCard> deck;
 
-  DeckView({super.key});
+  DeckView(this.deck, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Stack (
-      children: [
-        for (Card card in deck) ...[
-          CardView("backgroundCard"),
-        ]
-      ],
+    return TextButton(
+      onPressed: () {
+        // TODO: implement display cards
+      },
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero, // Remove padding
+      ),
+      child: CardView(),
     );
   }
-
 }
