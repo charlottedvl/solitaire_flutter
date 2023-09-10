@@ -6,13 +6,15 @@ import 'package:solitaire/backend/colored_stack.dart';
 import 'package:solitaire/backend/colum_card.dart';
 import 'package:solitaire/backend/column_draggable_card.dart';
 import 'package:solitaire/backend/column_hidden_card.dart';
+import 'package:solitaire/backend/deck.dart';
 import 'package:solitaire/backend/playing_card.dart';
 
 class Board {
   List<ColorCard> colors = <ColorCard>[];
 
-  List<PlayingCard> nextCardsDeck = <PlayingCard>[];
-  List<PlayingCard> discardDeck = <PlayingCard>[];
+  Deck nextCardsDeck = Deck(<PlayingCard>[], 3);
+  Deck displayDeck = Deck(<PlayingCard>[], 0);
+
 
   List<ColoredStack> stacks =
       List<ColoredStack>.generate(4, (index) => ColoredStack(<PlayingCard>[]));
@@ -32,7 +34,7 @@ class Board {
     for (ColorCard color in colors) {
       String colorName = color.getColorCardName();
       for (int i = 1; i < 14; i++) {
-        nextCardsDeck.add(PlayingCard(i, color, "$i$colorName"));
+        nextCardsDeck.push(PlayingCard(i, color, "$i$colorName"));
       }
     }
 
@@ -44,22 +46,22 @@ class Board {
           numberOfCards < indexColumn ;
           numberOfCards++) {
         index = random.nextInt(nextCardsDeck.length);
-        columns[indexColumn].columnHiddenCard.push(nextCardsDeck.removeAt(index));
+        columns[indexColumn].columnHiddenCard.push(nextCardsDeck.getStack().removeAt(index));
       }
       index = random.nextInt(nextCardsDeck.length);
-      columns[indexColumn].columnDraggableCard.push(nextCardsDeck.removeAt(index));
+      columns[indexColumn].columnDraggableCard.push(nextCardsDeck.getStack().removeAt(index));
       columns[indexColumn].columnDraggableCard.getStack().last.setIsVisible(true);
     }
 
     // Shuffle the deck with the remaining cards
-    nextCardsDeck.shuffle();
+    nextCardsDeck.getStack().shuffle();
   }
 
   List<ColorCard> getColors() {
     return colors;
   }
 
-  List<PlayingCard> getNextCardsDeck() {
+  Deck getNextCardsDeck() {
     return nextCardsDeck;
   }
 
