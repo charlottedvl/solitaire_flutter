@@ -34,7 +34,6 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
     int length = displayDeck.length;
 
 
-
     return SizedBox(
       height: height,
       width: 100.0,
@@ -46,18 +45,20 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                   left: j * spacing,
                   // TODO: Fix the position of element in stack
                   child: j != displayDeck.cardToShow - 1
-                      ? CardView(card: displayDeck.getStack()[length - 3 + j])
+                      ? CardView(card: displayDeck.getStack()[length - (j + 1)])
                       : Draggable<PlayingCard>(
-                    data: displayDeck.getStack()[length - 3 + j],
+                    data: displayDeck.getStack()[length - (j + 1)],
                     dragAnchorStrategy: pointerDragAnchorStrategy,
                     onDragCompleted: () {
-                      displayDeck.pop();
-                      setState(() { });
+                      displayDeck.getStack().removeAt(length - (j + 1));
+                      setState(() { if (displayDeck.cardToShow != 1) {
+                        displayDeck.cardToShow--;
+                      } });
                     },
-                    feedback: CardView(card: displayDeck.getStack()[length - 3 + j]),
+                    feedback: CardView(card: displayDeck.getStack()[length - (j + 1)]),
                     childWhenDragging:
                     Opacity(opacity: 0.0, child: CardView()),
-                    child: CardView(card: displayDeck.getStack()[length - 3 + j]),
+                    child: CardView(card: displayDeck.getStack()[length - (j + 1)]),
                   )
               ),
             ],

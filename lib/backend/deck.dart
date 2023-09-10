@@ -25,7 +25,9 @@ class Deck extends StackCard {
     if (length < cardToShow) {
       cardToShow = length;
     }
+    print(display.cardToShow);
     display.cardToShow = cardToShow;
+    print(display.cardToShow);
     for (int index = 0; index < cardToShow; index++) {
       display.push(pop());
       display.getStack().last.setIsVisible(true);

@@ -25,25 +25,30 @@ class DeckView extends StatelessWidget {
         onPressedCallback();
       },
       style: TextButton.styleFrom(
-        padding: EdgeInsets.zero, // Remove padding
+        padding: EdgeInsets.zero,
       ),
       child: nextCardsDeck
           .getStack()
           .isNotEmpty
-          ? CardView() // Display CardView widget if the stack is not empty
+          ? CardView()
           : Opacity(
-        opacity: 0.5,
-        child: Container(
-          height: 79,
-          width: 50,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.white,
-              width: 3.0,
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(5.0),
-            ),
+            opacity: 0.5,
+            child: Container(
+              height: 79,
+              width: 50,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.white,
+                  width: 3.0,
+                ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+              ),
+              child: const Icon(
+                Icons.refresh,  // Change to the desired icon
+                color: Colors.white,
+                size: 32.0,  // Adjust the size as needed
           ),
         ),
       ),
