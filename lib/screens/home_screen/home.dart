@@ -12,12 +12,11 @@ class Home extends StatelessWidget {
   double widthSizedBox = 0.1;
   double heightSizedBox = 0.1;
 
-  void calculateSize (double screenWidth, double screenHeight) {
+  void calculateSize(double screenWidth, double screenHeight) {
     padding = screenWidth * 0.1;
     widthSizedBox = screenWidth * 0.02;
     heightSizedBox = screenHeight * 0.05;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,6 @@ class Home extends StatelessWidget {
             children: [
               MyTitle(widthSizedBox, heightSizedBox),
               const EnterName()
-            ]
-        )
-    );
+            ]));
   }
 }

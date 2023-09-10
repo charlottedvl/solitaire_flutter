@@ -1,7 +1,13 @@
-
-import 'package:solitaire/backend/playing_card.dart';
-import 'package:solitaire/backend/stack_card.dart';
+import 'package:solitaire/backend/column_draggable_card.dart';
+import 'package:solitaire/backend/column_hidden_card.dart';
 
 class ColumnCard {
-  StackCard<PlayingCard> column = StackCard<PlayingCard>();
+  ColumnHiddenCard columnHiddenCard;
+  ColumnDraggableCard columnDraggableCard;
+
+  ColumnCard(this.columnDraggableCard, this.columnHiddenCard);
+
+  int getLength() {
+    return (columnDraggableCard.length + columnHiddenCard.length);
+  }
 }

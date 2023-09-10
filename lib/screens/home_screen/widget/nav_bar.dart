@@ -4,19 +4,18 @@ class NavBar extends StatefulWidget {
   final int selectedIndex;
   final Function(int) onTabTapped;
 
-  const NavBar({Key? key, required this.selectedIndex, required this.onTabTapped})
+  const NavBar(
+      {Key? key, required this.selectedIndex, required this.onTabTapped})
       : super(key: key);
 
   @override
-  State<NavBar> createState() =>
-      NavBarState();
+  State<NavBar> createState() => NavBarState();
 }
 
-class NavBarState
-    extends State<NavBar> {
+class NavBarState extends State<NavBar> {
   int selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> widgetOptions = <Widget>[
     Text(
       'Index 0: Home',
@@ -35,13 +34,12 @@ class NavBarState
     widget.onTabTapped(index); // Notify the parent about the tab change
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.green[100],
-      items:const <BottomNavigationBarItem>[
+      items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
@@ -55,9 +53,9 @@ class NavBarState
           label: 'Settings',
         ),
       ],
-        currentIndex: selectedIndex,
-        selectedItemColor: Colors.purple,
-        onTap: onItemTapped,
-      );
+      currentIndex: selectedIndex,
+      selectedItemColor: Colors.purple,
+      onTap: onItemTapped,
+    );
   }
 }
