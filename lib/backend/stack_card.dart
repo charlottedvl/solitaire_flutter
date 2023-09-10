@@ -11,20 +11,16 @@ abstract class StackCard<PlayingCard> {
     return stack;
   }
 
-  void clearStack() {
-    while (stack.isNotEmpty) {
-      stack.removeLast();
-    }
-  }
-
   void push(PlayingCard card) {
     stack.add(card);
   }
 
-  PlayingCard pop() {
-    PlayingCard lastCard = stack.last;
-    stack.removeLast();
-    return lastCard;
+  PlayingCard? pop() {
+    if (canPop()) {
+      PlayingCard lastCard = stack.last;
+      stack.removeLast();
+      return lastCard;
+    }
   }
 
   PlayingCard peak() => stack.last;

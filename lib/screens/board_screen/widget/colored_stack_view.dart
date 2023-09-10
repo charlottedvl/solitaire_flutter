@@ -59,7 +59,7 @@ class ColoredStackViewState extends State<ColoredStackView> {
                   dragAnchorStrategy: pointerDragAnchorStrategy,
                   onDragCompleted: () {
                     stack.pop();
-                    stack.getStack().last.setIsVisible(true);
+                    stack.testIfEmpty();
                     setState(() {
 
                     });
