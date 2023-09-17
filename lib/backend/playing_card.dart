@@ -35,7 +35,7 @@ class PlayingCard {
   }
 
   void addCardToStack(StackCard stack) {
-    if (stack.isCardAddable(this)) {
+    if (stack.isCardAddable([this])) {
       stack.push(this);
     }
   }

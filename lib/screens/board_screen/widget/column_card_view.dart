@@ -6,6 +6,7 @@ import 'package:solitaire/screens/board_screen/widget/card_view.dart';
 class ColumnCardView extends StatefulWidget {
   ColumnCard column;
 
+
   ColumnCardView(this.column, {Key? key}) : super(key: key);
 
   @override
@@ -14,11 +15,14 @@ class ColumnCardView extends StatefulWidget {
 
 class ColumnCardViewState extends State<ColumnCardView> {
   late ColumnCard column;
+  late List<PlayingCard> stackCopy;
+
 
   @override
   void initState() {
     super.initState();
     column = widget.column;
+    stackCopy = List.from(column.columnDraggableCard.getStack());
   }
 
 
@@ -29,6 +33,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
     double spacing = 25.0;
     double totalHeight = 500;
 
+    // TODO: Make sure the column isn't displaying anything when the column is empty
     return SizedBox(
         height: totalHeight,
         width: 61.0,
@@ -39,34 +44,62 @@ class ColumnCardViewState extends State<ColumnCardView> {
                 child: CardView(card: card)
             ),
           ],
-          for (PlayingCard card in column.columnDraggableCard.getStack()) ...[
-            Positioned(
-                top: (column.columnDraggableCard.getStack().indexOf(card) + column.columnHiddenCard.length) * spacing,
-                child: Draggable<PlayingCard>(
-                  data: card,
-                  dragAnchorStrategy: pointerDragAnchorStrategy,
-                  onDragCompleted: () {
-                    column.columnDraggableCard.pop();
-                    column.testEmptyColumnDraggableCard();
-                    setState(() { });
-                  },
-                  feedback: CardView(card: card),
-                  childWhenDragging:
-                  Opacity(opacity: 0.0, child: CardView()),
-                  child: CardView(card: card),
-                )
+          if (stackCopy.isNotEmpty) ...[
+            for (PlayingCard card in stackCopy) ...[
+              Positioned(
+                  top: (stackCopy.indexOf(card) + column.columnHiddenCard.length) * spacing,
+                  child: Draggable<List<PlayingCard>>(
+                    data: List.from(stackCopy.sublist(stackCopy.indexOf(card))),
+                    dragAnchorStrategy: pointerDragAnchorStrategy,
+                    onDragCompleted: () {
+                      column.columnDraggableCard.popAllFromIndex(stackCopy.indexOf(card));
+                      column.testEmptyColumnDraggableCard();
+                      setState(() {
+                        stackCopy = List.from(column.columnDraggableCard.getStack());
+                      });
+                    },
+                    feedback: CardView(card: card),
+                    childWhenDragging:
+                    Opacity(opacity: 0.0, child: CardView()),
+                    child: CardView(card: card),
+                  )
+              ),
+            ],
+          ] else ...[
+            Opacity(
+              opacity: 0.5,
+              child: Container(
+                height: 79,
+                width: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 3.0,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
+                ),
+                child: Container(),
+              ),
             ),
-
           ],
           Positioned(
             top: (column.getLength() - 1) * spacing,
             child: DragTarget(
-                onWillAccept: (card) => column.columnDraggableCard.isCardAddable(card),
-                onAccept: (card) => {
-                  column.columnDraggableCard.push(card),
-                  setState(() {
-
-                  }),
+                onWillAccept: (data) {
+                  if (data is List<PlayingCard>) {
+                    return column.columnDraggableCard.isCardAddable(data);
+                  }
+                  return false;
+                },
+                onAccept: (data) {
+                  if (data is List<PlayingCard>) {
+                    column.columnDraggableCard.pushAll(data);
+                    setState(() {
+                      stackCopy = List.from(column.columnDraggableCard.getStack());
+                    });
+                  }
                 },
                 builder: (
                     BuildContext context,

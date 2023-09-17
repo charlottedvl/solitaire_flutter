@@ -46,8 +46,8 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                   // TODO: Fix the position of element in stack
                   child: j != displayDeck.cardToShow - 1
                       ? CardView(card: displayDeck.getStack()[length - (j + 1)])
-                      : Draggable<PlayingCard>(
-                    data: displayDeck.getStack()[length - (j + 1)],
+                      : Draggable<List<PlayingCard>>(
+                    data: [displayDeck.getStack()[length - (j + 1)]],
                     dragAnchorStrategy: pointerDragAnchorStrategy,
                     onDragCompleted: () {
                       displayDeck.getStack().removeAt(length - (j + 1));

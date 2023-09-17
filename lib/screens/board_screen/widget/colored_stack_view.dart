@@ -54,8 +54,8 @@ class ColoredStackViewState extends State<ColoredStackView> {
               ),
               for (PlayingCard card in stack.getStack()) ...[
                 card.isVisible
-                    ? Draggable<PlayingCard>(
-                  data: card,
+                    ? Draggable<List<PlayingCard>>(
+                  data: [card],
                   dragAnchorStrategy: pointerDragAnchorStrategy,
                   onDragCompleted: () {
                     stack.pop();
@@ -70,12 +70,18 @@ class ColoredStackViewState extends State<ColoredStackView> {
                     : CardView(card: card)
               ],
               DragTarget(
-                onWillAccept: (card) => stack.isCardAddable(card),
-                onAccept: (card) => {
-                  stack.push(card),
-                  setState(() {
-
-                  }),
+                onWillAccept: (data) {
+                  if (data is List<PlayingCard>) {
+                    return stack.isCardAddable(data);
+                  }
+                  return false;
+                },
+                onAccept: (data) {
+                  if (data is List<PlayingCard>) {
+                    stack.push(data[0]);
+                    setState(() {
+                    });
+                  }
                 },
                 builder: (
                     BuildContext context,
