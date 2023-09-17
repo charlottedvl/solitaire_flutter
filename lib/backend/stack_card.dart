@@ -3,7 +3,7 @@ abstract class StackCard<PlayingCard> {
 
   int get length => stack.length;
 
-  bool isCardAddable(PlayingCard card);
+  bool isCardAddable(List<PlayingCard> cards);
 
   bool canPop() => stack.isNotEmpty;
 

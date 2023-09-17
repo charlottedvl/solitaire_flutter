@@ -9,14 +9,28 @@ class ColumnDraggableCard extends StackCard {
   }
 
   @override
-  bool isCardAddable(card) {
+  bool isCardAddable(cards) {
     if ((stack.isNotEmpty &&
-        card.color.color != stack.last.color.color &&
-        card.value == (stack.last.value - 1)) ||
-        stack.isEmpty && card.value == 13) {
+        cards[0].color.color != stack.last.color.color &&
+        cards[0].value == (stack.last.value - 1)) ||
+        stack.isEmpty && cards[0].value == 13) {
       return true;
     }
     return false;
+  }
+
+  void popAllFromIndex(int index) {
+    List<PlayingCard> cardsToMove = List.from(stack.sublist(index));
+    for (PlayingCard card in cardsToMove) {
+      pop();
+    }
+  }
+
+
+  void pushAll(List<PlayingCard> cardsToMove) {
+    for (PlayingCard card in cardsToMove) {
+      push(card);
+    }
   }
 
 }

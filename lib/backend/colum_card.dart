@@ -13,10 +13,12 @@ class ColumnCard {
   }
   
   void testEmptyColumnDraggableCard() {
-    if (columnDraggableCard.getStack().isEmpty){
-      PlayingCard cardToSwitch = columnHiddenCard.pop();
-      cardToSwitch.setIsVisible(true);
-      columnDraggableCard.push(cardToSwitch);
+    if (columnHiddenCard.getStack().isNotEmpty) {
+      if (columnDraggableCard.getStack().isEmpty){
+        PlayingCard cardToSwitch = columnHiddenCard.pop();
+        cardToSwitch.setIsVisible(true);
+        columnDraggableCard.push(cardToSwitch);
+      }
     }
   }
 
