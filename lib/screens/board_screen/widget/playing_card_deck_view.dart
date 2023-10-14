@@ -22,8 +22,7 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
   }
 
   void updateParentState() {
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -32,7 +31,6 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
     double height = 79.0;
 
     int length = displayDeck.length;
-
 
     return SizedBox(
       height: height,
@@ -47,20 +45,23 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                   child: j != displayDeck.cardToShow - 1
                       ? CardView(card: displayDeck.getStack()[length - (j + 1)])
                       : Draggable<List<PlayingCard>>(
-                    data: [displayDeck.getStack()[length - (j + 1)]],
-                    dragAnchorStrategy: pointerDragAnchorStrategy,
-                    onDragCompleted: () {
-                      displayDeck.getStack().removeAt(length - (j + 1));
-                      setState(() { if (displayDeck.cardToShow != 1) {
-                        displayDeck.cardToShow--;
-                      } });
-                    },
-                    feedback: CardView(card: displayDeck.getStack()[length - (j + 1)]),
-                    childWhenDragging:
-                    Opacity(opacity: 0.0, child: CardView()),
-                    child: CardView(card: displayDeck.getStack()[length - (j + 1)]),
-                  )
-              ),
+                          data: [displayDeck.getStack()[length - (j + 1)]],
+                          dragAnchorStrategy: pointerDragAnchorStrategy,
+                          onDragCompleted: () {
+                            displayDeck.getStack().removeAt(length - (j + 1));
+                            setState(() {
+                              if (displayDeck.cardToShow != 1) {
+                                displayDeck.cardToShow--;
+                              }
+                            });
+                          },
+                          feedback: CardView(
+                              card: displayDeck.getStack()[length - (j + 1)]),
+                          childWhenDragging:
+                              Opacity(opacity: 0.0, child: CardView()),
+                          child: CardView(
+                              card: displayDeck.getStack()[length - (j + 1)]),
+                        )),
             ],
           ],
         ],

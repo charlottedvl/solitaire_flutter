@@ -11,15 +11,14 @@ class ColumnCard {
   int getLength() {
     return (columnDraggableCard.length + columnHiddenCard.length);
   }
-  
+
   void testEmptyColumnDraggableCard() {
     if (columnHiddenCard.getStack().isNotEmpty) {
-      if (columnDraggableCard.getStack().isEmpty){
+      if (columnDraggableCard.getStack().isEmpty) {
         PlayingCard cardToSwitch = columnHiddenCard.pop();
         cardToSwitch.setIsVisible(true);
         columnDraggableCard.push(cardToSwitch);
       }
     }
   }
-
 }
