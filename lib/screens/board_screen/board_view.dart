@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/board.dart';
 import 'package:solitaire/backend/colum_card.dart';
-import 'package:solitaire/screens/board_screen/widget/column_card_view.dart';
-import 'package:solitaire/screens/board_screen/widget/playing_card_deck_view.dart';
-import 'package:solitaire/screens/board_screen/widget/colored_stack_view.dart';
-import 'package:solitaire/screens/board_screen/widget/deck_view.dart';
+import 'package:solitaire/screens/board_screen/components/column_card_view.dart';
+import 'package:solitaire/screens/board_screen/components/playing_card_deck_view.dart';
+import 'package:solitaire/screens/board_screen/components/colored_stack_view.dart';
+import 'package:solitaire/screens/board_screen/components/deck_view.dart';
 
 class BoardView extends StatefulWidget {
   const BoardView({super.key});
