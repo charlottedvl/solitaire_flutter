@@ -16,6 +16,7 @@ class ColumnCardView extends StatefulWidget {
 class ColumnCardViewState extends State<ColumnCardView> {
   late ColumnCard column;
   late List<PlayingCard> stackCopy;
+  double opacity = 1.0;
 
 
   @override
@@ -32,7 +33,6 @@ class ColumnCardViewState extends State<ColumnCardView> {
   Widget build(BuildContext context) {
     double spacing = 25.0;
     double totalHeight = 500;
-
     // TODO: Make sure the column isn't displaying anything when the column is empty
     return SizedBox(
         height: totalHeight,
@@ -51,6 +51,11 @@ class ColumnCardViewState extends State<ColumnCardView> {
                   child: Draggable<List<PlayingCard>>(
                     data: List.from(stackCopy.sublist(stackCopy.indexOf(card))),
                     dragAnchorStrategy: pointerDragAnchorStrategy,
+                    onDragStarted: () {
+                      setState(() {
+                        this.opacity = 0.0;
+                      });
+                    },
                     onDragCompleted: () {
                       column.columnDraggableCard.popAllFromIndex(stackCopy.indexOf(card));
                       column.testEmptyColumnDraggableCard();
@@ -58,10 +63,31 @@ class ColumnCardViewState extends State<ColumnCardView> {
                         stackCopy = List.from(column.columnDraggableCard.getStack());
                       });
                     },
-                    feedback: CardView(card: card),
+                    onDragEnd: (details) {
+                      setState(() {
+                        opacity = 1.0;
+                      });
+                    },
+                    feedback: SizedBox(
+                      height: totalHeight,
+                      width: 61.0,
+                      child: Stack(
+                          children: <Widget> [
+                            for (int i = stackCopy.indexOf(card); i < stackCopy.length; i++) ...[
+                              Positioned(
+                                  top: (i - stackCopy.indexOf(card)) * spacing,
+                                  child: CardView(card: stackCopy[i])
+                              ),
+                            ]
+                          ]
+                      ),
+                    ),
                     childWhenDragging:
                     Opacity(opacity: 0.0, child: CardView()),
-                    child: CardView(card: card),
+                    child: CardView(
+                      card: card,
+                      opacity: this.opacity,
+                    ),
                   )
               ),
             ],
