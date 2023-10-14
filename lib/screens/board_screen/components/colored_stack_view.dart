@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/colored_stack.dart';
 import 'package:solitaire/backend/playing_card.dart';
-import 'package:solitaire/screens/board_screen/widget/card_view.dart';
+import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 
 class ColoredStackView extends StatefulWidget {
   List<ColoredStack> stacks;

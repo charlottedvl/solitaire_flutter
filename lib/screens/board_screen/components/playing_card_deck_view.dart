@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/deck.dart';
 import 'package:solitaire/backend/playing_card.dart';
-import 'package:solitaire/screens/board_screen/widget/card_view.dart';
+import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 
 class PlayingCardDeckView extends StatefulWidget {
   Deck displayDeck;
