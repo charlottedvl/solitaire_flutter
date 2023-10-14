@@ -1,5 +1,3 @@
-
-
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/backend/stack_card.dart';
 
@@ -40,5 +38,4 @@ class Deck extends StackCard {
       flipDeck(display);
     }
   }
-
 }

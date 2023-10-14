@@ -55,18 +55,16 @@ class ColoredStackViewState extends State<ColoredStackView> {
               for (PlayingCard card in stack.getStack()) ...[
                 card.isVisible
                     ? Draggable<List<PlayingCard>>(
-                  data: [card],
-                  dragAnchorStrategy: pointerDragAnchorStrategy,
-                  onDragCompleted: () {
-                    stack.pop();
-                    stack.testIfEmpty();
-                    setState(() {
-
-                    });
-                  },
-                  feedback: CardView(card: card),
-                  child: CardView(card: card),
-                )
+                        data: [card],
+                        dragAnchorStrategy: pointerDragAnchorStrategy,
+                        onDragCompleted: () {
+                          stack.pop();
+                          stack.testIfEmpty();
+                          setState(() {});
+                        },
+                        feedback: CardView(card: card),
+                        child: CardView(card: card),
+                      )
                     : CardView(card: card)
               ],
               DragTarget(
@@ -79,15 +77,14 @@ class ColoredStackViewState extends State<ColoredStackView> {
                 onAccept: (data) {
                   if (data is List<PlayingCard>) {
                     stack.push(data[0]);
-                    setState(() {
-                    });
+                    setState(() {});
                   }
                 },
                 builder: (
-                    BuildContext context,
-                    List<dynamic> accepted,
-                    List<dynamic> rejected,
-                    ) {
+                  BuildContext context,
+                  List<dynamic> accepted,
+                  List<dynamic> rejected,
+                ) {
                   return const SizedBox(
                     width: 50,
                     height: 79,
@@ -103,5 +100,4 @@ class ColoredStackViewState extends State<ColoredStackView> {
       ],
     ]);
   }
-
 }

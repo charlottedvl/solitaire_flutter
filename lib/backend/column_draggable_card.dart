@@ -1,9 +1,7 @@
-
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/backend/stack_card.dart';
 
 class ColumnDraggableCard extends StackCard {
-
   ColumnDraggableCard(List<PlayingCard> stack) {
     this.stack = stack;
   }
@@ -11,8 +9,8 @@ class ColumnDraggableCard extends StackCard {
   @override
   bool isCardAddable(cards) {
     if ((stack.isNotEmpty &&
-        cards[0].color.color != stack.last.color.color &&
-        cards[0].value == (stack.last.value - 1)) ||
+            cards[0].color.color != stack.last.color.color &&
+            cards[0].value == (stack.last.value - 1)) ||
         stack.isEmpty && cards[0].value == 13) {
       return true;
     }
@@ -26,11 +24,9 @@ class ColumnDraggableCard extends StackCard {
     }
   }
 
-
   void pushAll(List<PlayingCard> cardsToMove) {
     for (PlayingCard card in cardsToMove) {
       push(card);
     }
   }
-
 }

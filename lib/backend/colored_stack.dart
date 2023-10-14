@@ -15,8 +15,8 @@ class ColoredStack extends StackCard {
       if ((stack.isEmpty && cards[0].value == 1)) {
         color = cards[0].color;
         return true;
-      } else
-      if (color?.getColorCardName() == cards[0].getColor().getColorCardName() &&
+      } else if (color?.getColorCardName() ==
+              cards[0].getColor().getColorCardName() &&
           (stack.isNotEmpty && cards[0].value == (stack.last.value + 1))) {
         return true;
       }

@@ -9,18 +9,15 @@ import 'package:solitaire/screens/board_screen/widget/deck_view.dart';
 class BoardView extends StatefulWidget {
   const BoardView({super.key});
 
-@override
-BoardViewState createState() =>
-    BoardViewState();
+  @override
+  BoardViewState createState() => BoardViewState();
 }
 
 class BoardViewState extends State<BoardView> {
   Board board = Board();
 
-
   void updatePlayingCardDeckView() {
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -47,7 +44,8 @@ class BoardViewState extends State<BoardView> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DeckView(board.nextCardsDeck, board.displayDeck, onPressedCallback: updatePlayingCardDeckView),
+                  DeckView(board.nextCardsDeck, board.displayDeck,
+                      onPressedCallback: updatePlayingCardDeckView),
                   PlayingCardDeckView(board.displayDeck),
                   ColoredStackView(board.stacks),
                 ]),

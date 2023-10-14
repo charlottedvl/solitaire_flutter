@@ -15,12 +15,13 @@ class Board {
   Deck nextCardsDeck = Deck(<PlayingCard>[], 3);
   Deck displayDeck = Deck(<PlayingCard>[], 0);
 
-
   List<ColoredStack> stacks =
       List<ColoredStack>.generate(4, (index) => ColoredStack(<PlayingCard>[]));
 
-  List<ColumnCard> columns =
-      List<ColumnCard>.generate(7, (index) => ColumnCard(ColumnDraggableCard(<PlayingCard>[]), ColumnHiddenCard(<PlayingCard>[])));
+  List<ColumnCard> columns = List<ColumnCard>.generate(
+      7,
+      (index) => ColumnCard(ColumnDraggableCard(<PlayingCard>[]),
+          ColumnHiddenCard(<PlayingCard>[])));
 
   Board() {
     // Initialize the colors
@@ -43,14 +44,22 @@ class Board {
     int index;
     for (int indexColumn = 0; indexColumn < 7; indexColumn++) {
       for (int numberOfCards = 0;
-          numberOfCards < indexColumn ;
+          numberOfCards < indexColumn;
           numberOfCards++) {
         index = random.nextInt(nextCardsDeck.length);
-        columns[indexColumn].columnHiddenCard.push(nextCardsDeck.getStack().removeAt(index));
+        columns[indexColumn]
+            .columnHiddenCard
+            .push(nextCardsDeck.getStack().removeAt(index));
       }
       index = random.nextInt(nextCardsDeck.length);
-      columns[indexColumn].columnDraggableCard.push(nextCardsDeck.getStack().removeAt(index));
-      columns[indexColumn].columnDraggableCard.getStack().last.setIsVisible(true);
+      columns[indexColumn]
+          .columnDraggableCard
+          .push(nextCardsDeck.getStack().removeAt(index));
+      columns[indexColumn]
+          .columnDraggableCard
+          .getStack()
+          .last
+          .setIsVisible(true);
     }
 
     // Shuffle the deck with the remaining cards
@@ -72,5 +81,4 @@ class Board {
   List<ColumnCard> getColumns() {
     return columns;
   }
-
 }

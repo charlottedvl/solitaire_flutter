@@ -10,13 +10,14 @@ class CardView extends StatelessWidget {
     this.card,
     this.opacity = 1.0,
     super.key,
-  }) :  media = card != null && card.isVisible ? card.getMedia() : "backgroundCard";
+  }) : media =
+            card != null && card.isVisible ? card.getMedia() : "backgroundCard";
 
   @override
   Widget build(BuildContext context) {
     return Opacity(
         opacity: opacity,
-        child:SizedBox(
+        child: SizedBox(
           width: 49.22,
           height: 78.67,
           child: Stack(
@@ -25,7 +26,8 @@ class CardView extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/media/cardView/$media.png"),
+                      image:
+                          AssetImage("assets/images/media/cardView/$media.png"),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: const BorderRadius.all(
@@ -37,7 +39,8 @@ class CardView extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/media/cardView/$media.png"),
+                      image:
+                          AssetImage("assets/images/media/cardView/$media.png"),
                       fit: BoxFit.cover,
                     ),
                     border: Border.all(
@@ -63,7 +66,6 @@ class CardView extends StatelessWidget {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
