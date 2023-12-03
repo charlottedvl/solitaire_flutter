@@ -27,38 +27,43 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
     double height = 79.0;
 
     int length = displayDeck.length;
-    int cardToShow = displayDeck.cardToShow;
     return SizedBox(
       height: height,
       width: 100.0,
       child: Stack(
         children: <Widget>[
           if (displayDeck.getStack().isNotEmpty) ...[
-            for (int j = 0; j < cardToShow; j++) ...[
+            for (int j = 1; j < displayDeck.cardToShow + 1; j++) ...[
               Positioned(
-                  left: j * spacing,
-                  child: j != cardToShow - 1
-                      ? CardView(card: displayDeck.getStack()[length - (j + 1)])
+                  left: (j - 1) * spacing,
+                  child: j != displayDeck.cardToShow
+                      // If there is more than 1 card to display,
+                      // make the other ones not draggable
+                      ? CardView(card: displayDeck.getStack()[length - j])
                       : Draggable<List<PlayingCard>>(
-                          data: [displayDeck.getStack()[length - (j + 1)]],
+                          data: [displayDeck.getStack()[length - j]],
                           dragAnchorStrategy: pointerDragAnchorStrategy,
                           onDragCompleted: () {
-                            displayDeck.getStack().removeAt(length - (j + 1));
+                            displayDeck.getStack().removeAt(length - j);
                             setState(() {
-                              if (cardToShow != 1) {
-                                cardToShow--;
+                              if (displayDeck.cardToShow != 1) {
+                                displayDeck.cardToShow--;
                               }
                             });
                           },
                           feedback: CardView(
-                              card: displayDeck.getStack()[length - (j + 1)]),
-                          childWhenDragging: cardToShow != 1 || length < 2
+                              card: displayDeck.getStack()[length - j]),
+                          childWhenDragging: displayDeck.cardToShow != 1 ||
+                                  length < 2
                               ? Opacity(opacity: 0.0, child: CardView())
+                              // If there is only one card to display and
+                              // the deck has more than 2 cards,*
+                              // then display a card when the last card is moving
                               : CardView(
                                   card: displayDeck.getStack()[length - 2],
                                 ),
                           child: CardView(
-                              card: displayDeck.getStack()[length - (j + 1)]),
+                              card: displayDeck.getStack()[length - j]),
                         )),
             ],
           ],
