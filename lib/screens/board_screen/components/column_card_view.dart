@@ -42,21 +42,43 @@ class ColumnCardViewState extends State<ColumnCardView> {
     });
   }
 
+  Widget emptyColumn() {
+    return Opacity(
+      opacity: 0.5,
+      child: Container(
+        height: 79,
+        width: 50,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+            width: 3.0,
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(5.0),
+          ),
+        ),
+        child: Container(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double spacing = 25.0;
     double totalHeight = 500;
-    // TODO: Make sure the column isn't displaying anything when the column is empty
     return SizedBox(
         height: totalHeight,
         width: 61.0,
         child: Stack(children: <Widget>[
+          Positioned(
+              top: 0,
+              child: emptyColumn(),
+          ),
           for (PlayingCard card in column.columnHiddenCard.getStack()) ...[
             Positioned(
                 top: column.columnHiddenCard.getStack().indexOf(card) * spacing,
                 child: CardView(card: card)),
           ],
-          if (stackCopy.isNotEmpty) ...[
             for (PlayingCard card in stackCopy) ...[
               Positioned(
                   top: (stackCopy.indexOf(card) +
@@ -73,25 +95,6 @@ class ColumnCardViewState extends State<ColumnCardView> {
                     updateDraggableColumn: updateDraggableColumn,
                   )),
             ],
-          ] else ...[
-            Opacity(
-              opacity: 0.5,
-              child: Container(
-                height: 79,
-                width: 50,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 3.0,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5.0),
-                  ),
-                ),
-                child: Container(),
-              ),
-            ),
-          ],
           Positioned(
             top: (column.getLength() - 1) * spacing,
             child: DragTarget(onWillAccept: (data) {
@@ -118,6 +121,8 @@ class ColumnCardViewState extends State<ColumnCardView> {
               );
             }),
           ),
-        ]));
+        ]
+        )
+    );
   }
 }
