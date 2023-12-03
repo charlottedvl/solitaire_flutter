@@ -8,8 +8,14 @@ import 'package:solitaire/shared/widget/empty_stack.dart';
 class ColoredStackView extends StatefulWidget {
   // Cards of a color
   List<ColoredStack> stacks;
+  // Test if the game is over
+  Function testIfFinish;
 
-  ColoredStackView(this.stacks, {super.key});
+  ColoredStackView(
+    this.stacks, {
+    super.key,
+    required this.testIfFinish,
+  });
 
   @override
   ColoredStackViewState createState() => ColoredStackViewState();
@@ -65,7 +71,7 @@ class ColoredStackViewState extends State<ColoredStackView> {
                 onAccept: (data) {
                   if (data is List<PlayingCard>) {
                     stack.push(data[0]);
-                    setState(() {});
+                    widget.testIfFinish();
                   }
                 },
                 builder: (

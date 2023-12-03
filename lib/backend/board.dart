@@ -81,4 +81,13 @@ class Board {
   List<ColumnCard> getColumns() {
     return columns;
   }
+
+  bool testIfFinish() {
+    for (ColoredStack stack in stacks) {
+      if (stack.getStack().length != 13) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
