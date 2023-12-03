@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/screens/home_screen/widget/enter_name.dart';
 import 'package:solitaire/screens/home_screen/widget/title.dart';
-import 'package:solitaire/shared/constants.dart';
+import 'package:solitaire/shared/string_constants.dart';
 
 class Home extends StatelessWidget {
   Home({

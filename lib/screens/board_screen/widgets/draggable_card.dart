@@ -60,11 +60,7 @@ class DraggableCardState extends State<DraggableCard> {
                 top: (i - widget.indexOfCards) * spacing,
                 child: Opacity(
                     opacity: widget.opacities[i],
-                    child: CardView(
-                        card: widget.cards[i]
-                    )
-                )
-            ),
+                    child: CardView(card: widget.cards[i]))),
           ]
         ]),
       ),

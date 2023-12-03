@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/shared/constants.dart';
 
 class CardView extends StatelessWidget {
   PlayingCard? card;
@@ -18,8 +19,8 @@ class CardView extends StatelessWidget {
     return Opacity(
         opacity: opacity,
         child: SizedBox(
-          width: 49.22,
-          height: 78.67,
+          width: cardWidth,
+          height: cardHeight,
           child: Stack(
             children: [
               if (card?.isVisible ?? false) ...[
@@ -31,7 +32,7 @@ class CardView extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(5.0),
+                      Radius.circular(cardRadius),
                     ),
                   ),
                 ),
@@ -48,7 +49,7 @@ class CardView extends StatelessWidget {
                       width: 5.0,
                     ),
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(5.0),
+                      Radius.circular(cardRadius),
                     ),
                   ),
                 ),
@@ -60,7 +61,7 @@ class CardView extends StatelessWidget {
                     width: 0.5,
                   ),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(5.0),
+                    Radius.circular(cardRadius),
                   ),
                 ),
               ),

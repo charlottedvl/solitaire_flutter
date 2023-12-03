@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/deck.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
+import 'package:solitaire/shared/widget/empty_stack.dart';
 
 class DeckView extends StatelessWidget {
   Deck nextCardsDeck;
@@ -27,26 +28,8 @@ class DeckView extends StatelessWidget {
       ),
       child: nextCardsDeck.getStack().isNotEmpty
           ? CardView()
-          : Opacity(
-              opacity: 0.5,
-              child: Container(
-                height: 79,
-                width: 50,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 3.0,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5.0),
-                  ),
-                ),
-                child: const Icon(
-                  Icons.refresh, // Change to the desired icon
-                  color: Colors.white,
-                  size: 32.0, // Adjust the size as needed
-                ),
-              ),
+          : EmptyStack(
+              icon: "refresh",
             ),
     );
   }
