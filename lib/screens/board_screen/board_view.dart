@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:solitaire/backend/board.dart';
 import 'package:solitaire/backend/colum_card.dart';
 import 'package:solitaire/screens/board_screen/components/column_card_view.dart';
+import 'package:solitaire/screens/board_screen/components/finish_pop_up.dart';
 import 'package:solitaire/screens/board_screen/components/playing_card_deck_view.dart';
 import 'package:solitaire/screens/board_screen/components/colored_stack_view.dart';
 import 'package:solitaire/screens/board_screen/components/deck_view.dart';
@@ -15,10 +16,35 @@ class BoardView extends StatefulWidget {
 }
 
 class BoardViewState extends State<BoardView> {
-  Board board = Board();
+  late Board board;
+
+  @override
+  void initState() {
+    super.initState();
+    board = Board();
+  }
 
   void updatePlayingCardDeckView() {
     setState(() {});
+  }
+
+  void testIfFinish() {
+    setState(() {
+      FinishPopUpState.showPopUp = true;
+    });
+
+    if (board.testIfFinish()) {
+      setState(() {
+        FinishPopUpState.showPopUp = true;
+      });
+    }
+  }
+
+  void refresh() {
+    setState(() {
+      FinishPopUpState.showPopUp = false;
+      board = Board();
+    });
   }
 
   @override
@@ -40,28 +66,41 @@ class BoardViewState extends State<BoardView> {
             vertical: paddingVertical,
             horizontal: paddingHorizontal,
           ),
-          child: Column(children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DeckView(board.nextCardsDeck, board.displayDeck,
-                      onPressedCallback: updatePlayingCardDeckView),
-                  PlayingCardDeckView(board.displayDeck),
-                  ColoredStackView(board.stacks),
-                ]),
-            const SizedBox(height: 5),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  for (ColumnCard column in board.columns) ...[
-                    SizedBox(
-                      width: cardWidth,
-                      child: ColumnCardView(column),
-                    )
-                  ]
-                ]),
+          child: Stack(children: [
+            Column(children: [
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DeckView(
+                      board.nextCardsDeck,
+                      board.displayDeck,
+                      onPressedCallback: updatePlayingCardDeckView,
+                      key: UniqueKey(),
+                    ),
+                    PlayingCardDeckView(key: UniqueKey(), board.displayDeck),
+                    ColoredStackView(
+                      key: UniqueKey(),
+                      board.stacks,
+                      testIfFinish: testIfFinish,
+                    ),
+                  ]),
+              const SizedBox(height: 5),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (ColumnCard column in board.columns) ...[
+                      SizedBox(
+                        width: cardWidth,
+                        child: ColumnCardView(key: UniqueKey(), column),
+                      )
+                    ]
+                  ]),
+            ]),
+            FinishPopUp(
+              refreshGame: refresh,
+            ),
           ]),
         ));
   }
