@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:solitaire/backend/colum_card.dart';
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
+import 'package:solitaire/screens/board_screen/widgets/draggable_card.dart';
 
 class ColumnCardView extends StatefulWidget {
   ColumnCard column;
@@ -15,13 +16,30 @@ class ColumnCardView extends StatefulWidget {
 class ColumnCardViewState extends State<ColumnCardView> {
   late ColumnCard column;
   late List<PlayingCard> stackCopy;
-  double opacity = 1.0;
+  List<double> opacities = [];
 
   @override
   void initState() {
     super.initState();
     column = widget.column;
     stackCopy = List.from(column.columnDraggableCard.getStack());
+    opacities = List.generate(stackCopy.length, (index) => 1.0);
+  }
+
+  void updateDraggableColumn(int index) {
+    column.columnDraggableCard.popAllFromIndex(index);
+    column.testEmptyColumnDraggableCard();
+    setState(() {
+      stackCopy = List.from(widget.column.columnDraggableCard.getStack());
+    });
+  }
+
+  void changeOpacity(bool visible, int index) {
+    setState(() {
+      for (int i = index; i < opacities.length; i++) {
+        opacities[i] = visible ? 1 : 0;
+      }
+    });
   }
 
   @override
@@ -44,46 +62,15 @@ class ColumnCardViewState extends State<ColumnCardView> {
                   top: (stackCopy.indexOf(card) +
                           column.columnHiddenCard.length) *
                       spacing,
-                  child: Draggable<List<PlayingCard>>(
+                  child: DraggableCard(
+                    card: card,
+                    indexOfCards: stackCopy.indexOf(card),
+                    column: column,
+                    cards: stackCopy,
+                    opacities: opacities,
+                    changeOpacity: changeOpacity,
                     data: List.from(stackCopy.sublist(stackCopy.indexOf(card))),
-                    dragAnchorStrategy: pointerDragAnchorStrategy,
-                    onDragStarted: () {
-                      setState(() {
-                        this.opacity = 0.0;
-                      });
-                    },
-                    onDragCompleted: () {
-                      column.columnDraggableCard
-                          .popAllFromIndex(stackCopy.indexOf(card));
-                      column.testEmptyColumnDraggableCard();
-                      setState(() {
-                        stackCopy =
-                            List.from(column.columnDraggableCard.getStack());
-                      });
-                    },
-                    onDragEnd: (details) {
-                      setState(() {
-                        opacity = 1.0;
-                      });
-                    },
-                    feedback: SizedBox(
-                      height: totalHeight,
-                      width: 61.0,
-                      child: Stack(children: <Widget>[
-                        for (int i = stackCopy.indexOf(card);
-                            i < stackCopy.length;
-                            i++) ...[
-                          Positioned(
-                              top: (i - stackCopy.indexOf(card)) * spacing,
-                              child: CardView(card: stackCopy[i])),
-                        ]
-                      ]),
-                    ),
-                    childWhenDragging: Opacity(opacity: 0.0, child: CardView()),
-                    child: CardView(
-                      card: card,
-                      opacity: this.opacity,
-                    ),
+                    updateDraggableColumn: updateDraggableColumn,
                   )),
             ],
           ] else ...[
@@ -117,6 +104,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
                 column.columnDraggableCard.pushAll(data);
                 setState(() {
                   stackCopy = List.from(column.columnDraggableCard.getStack());
+                  opacities = List.generate(stackCopy.length, (index) => 1.0);
                 });
               }
             }, builder: (
