@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:solitaire/backend/colored_stack.dart';
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
+import 'package:solitaire/shared/constants.dart';
+import 'package:solitaire/shared/widget/empty_stack.dart';
 
 class ColoredStackView extends StatefulWidget {
+  // Cards of a color
   List<ColoredStack> stacks;
 
   ColoredStackView(this.stacks, {super.key});
@@ -13,6 +16,7 @@ class ColoredStackView extends StatefulWidget {
 }
 
 class ColoredStackViewState extends State<ColoredStackView> {
+  // Cards of a color
   late List<ColoredStack> stacks;
 
   @override
@@ -23,8 +27,8 @@ class ColoredStackViewState extends State<ColoredStackView> {
 
   @override
   Widget build(BuildContext context) {
-    double height = 79.0;
-    double width = 50.0;
+    double height = cardHeight;
+    double width = cardWidth;
 
     return Row(children: [
       for (ColoredStack stack in stacks) ...[
@@ -33,24 +37,8 @@ class ColoredStackViewState extends State<ColoredStackView> {
           width: width,
           child: Stack(
             children: <Widget>[
-              Opacity(
-                opacity: 0.5,
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage(
-                          "assets/images/media/cardView/UnderStack.png"),
-                      fit: BoxFit.cover,
-                    ),
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 3.0,
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
-                ),
+              EmptyStack(
+                icon: "UnderStack",
               ),
               for (PlayingCard card in stack.getStack()) ...[
                 card.isVisible
@@ -86,8 +74,8 @@ class ColoredStackViewState extends State<ColoredStackView> {
                   List<dynamic> rejected,
                 ) {
                   return const SizedBox(
-                    width: 50,
-                    height: 79,
+                    width: cardWidth,
+                    height: cardHeight,
                   );
                 },
               ),

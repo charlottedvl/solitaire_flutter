@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/shared/constants.dart';
+import 'package:solitaire/shared/string_constants.dart';
 
 class MyTitle extends StatelessWidget {
   final double widthSizedBox;
@@ -42,7 +43,7 @@ class MyTitle extends StatelessWidget {
                     bottom: BorderSide(color: Colors.black),
                   ),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(5.0),
+                    Radius.circular(cardRadius),
                   ),
                 ),
               ),

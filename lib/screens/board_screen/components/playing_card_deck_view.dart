@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:solitaire/backend/deck.dart';
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
+import 'package:solitaire/shared/constants.dart';
 
 class PlayingCardDeckView extends StatefulWidget {
   Deck displayDeck;
@@ -24,7 +25,7 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
   @override
   Widget build(BuildContext context) {
     double spacing = 25.0;
-    double height = 79.0;
+    double height = cardHeight;
 
     int length = displayDeck.length;
     return SizedBox(
@@ -55,7 +56,8 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                               card: displayDeck.getStack()[length - j]),
                           childWhenDragging: displayDeck.cardToShow != 1 ||
                                   length < 2
-                              ? Opacity(opacity: 0.0, child: CardView())
+                              ? Opacity(
+                                  opacity: opacityHiddenCard, child: CardView())
                               // If there is only one card to display and
                               // the deck has more than 2 cards,*
                               // then display a card when the last card is moving

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/colum_card.dart';
+import 'package:solitaire/backend/column_draggable_card.dart';
+import 'package:solitaire/backend/column_hidden_card.dart';
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/screens/board_screen/widgets/draggable_card.dart';
+import 'package:solitaire/shared/constants.dart';
+import 'package:solitaire/shared/widget/empty_stack.dart';
 
 class ColumnCardView extends StatefulWidget {
+  // Card column
   ColumnCard column;
 
   ColumnCardView(this.column, {Key? key}) : super(key: key);
@@ -14,52 +19,40 @@ class ColumnCardView extends StatefulWidget {
 }
 
 class ColumnCardViewState extends State<ColumnCardView> {
-  late ColumnCard column;
+  // Draggable cards
+  late ColumnDraggableCard columnDraggable;
+  // Hidden cards
+  late ColumnHiddenCard columnHidden;
+  // Copy of the draggable stack
   late List<PlayingCard> stackCopy;
+  // Opacities of the draggable cards
   List<double> opacities = [];
 
   @override
   void initState() {
     super.initState();
-    column = widget.column;
-    stackCopy = List.from(column.columnDraggableCard.getStack());
+    columnDraggable = widget.column.columnDraggableCard;
+    columnHidden = widget.column.columnHiddenCard;
+    stackCopy = List.from(widget.column.columnDraggableCard.getStack());
     opacities = List.generate(stackCopy.length, (index) => 1.0);
   }
 
+  /// Update the draggable column
   void updateDraggableColumn(int index) {
-    column.columnDraggableCard.popAllFromIndex(index);
-    column.testEmptyColumnDraggableCard();
+    columnDraggable.popAllFromIndex(index);
+    widget.column.testEmptyColumnDraggableCard();
     setState(() {
       stackCopy = List.from(widget.column.columnDraggableCard.getStack());
     });
   }
 
+  /// Change the opacity and rebuild the widget
   void changeOpacity(bool visible, int index) {
     setState(() {
       for (int i = index; i < opacities.length; i++) {
         opacities[i] = visible ? 1 : 0;
       }
     });
-  }
-
-  Widget emptyColumn() {
-    return Opacity(
-      opacity: 0.5,
-      child: Container(
-        height: 79,
-        width: 50,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-            width: 3.0,
-          ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(5.0),
-          ),
-        ),
-        child: Container(),
-      ),
-    );
   }
 
   @override
@@ -71,42 +64,40 @@ class ColumnCardViewState extends State<ColumnCardView> {
         width: 61.0,
         child: Stack(children: <Widget>[
           Positioned(
-              top: 0,
-              child: emptyColumn(),
+            top: 0,
+            child: EmptyStack(),
           ),
-          for (PlayingCard card in column.columnHiddenCard.getStack()) ...[
+          for (PlayingCard card in columnHidden.getStack()) ...[
             Positioned(
-                top: column.columnHiddenCard.getStack().indexOf(card) * spacing,
+                top: columnHidden.getStack().indexOf(card) * spacing,
                 child: CardView(card: card)),
           ],
-            for (PlayingCard card in stackCopy) ...[
-              Positioned(
-                  top: (stackCopy.indexOf(card) +
-                          column.columnHiddenCard.length) *
-                      spacing,
-                  child: DraggableCard(
-                    card: card,
-                    indexOfCards: stackCopy.indexOf(card),
-                    column: column,
-                    cards: stackCopy,
-                    opacities: opacities,
-                    changeOpacity: changeOpacity,
-                    data: List.from(stackCopy.sublist(stackCopy.indexOf(card))),
-                    updateDraggableColumn: updateDraggableColumn,
-                  )),
-            ],
+          for (PlayingCard card in stackCopy) ...[
+            Positioned(
+                top: (stackCopy.indexOf(card) + columnHidden.length) * spacing,
+                child: DraggableCard(
+                  card: card,
+                  indexOfCards: stackCopy.indexOf(card),
+                  column: widget.column,
+                  cards: stackCopy,
+                  opacities: opacities,
+                  changeOpacity: changeOpacity,
+                  data: List.from(stackCopy.sublist(stackCopy.indexOf(card))),
+                  updateDraggableColumn: updateDraggableColumn,
+                )),
+          ],
           Positioned(
-            top: (column.getLength() - 1) * spacing,
+            top: (widget.column.getLength() - 1) * spacing,
             child: DragTarget(onWillAccept: (data) {
               if (data is List<PlayingCard>) {
-                return column.columnDraggableCard.isCardAddable(data);
+                return columnDraggable.isCardAddable(data);
               }
               return false;
             }, onAccept: (data) {
               if (data is List<PlayingCard>) {
-                column.columnDraggableCard.pushAll(data);
+                columnDraggable.pushAll(data);
                 setState(() {
-                  stackCopy = List.from(column.columnDraggableCard.getStack());
+                  stackCopy = List.from(columnDraggable.getStack());
                   opacities = List.generate(stackCopy.length, (index) => 1.0);
                 });
               }
@@ -116,13 +107,11 @@ class ColumnCardViewState extends State<ColumnCardView> {
               List<dynamic> rejected,
             ) {
               return const SizedBox(
-                width: 50,
-                height: 79,
+                width: cardWidth,
+                height: cardHeight,
               );
             }),
           ),
-        ]
-        )
-    );
+        ]));
   }
 }
