@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/screens/home_screen/widget/enter_name.dart';
+import 'package:solitaire/screens/board_screen/board_view.dart';
 import 'package:solitaire/screens/home_screen/widget/title.dart';
-import 'package:solitaire/shared/string_constants.dart';
 
 class Home extends StatelessWidget {
   Home({
@@ -18,6 +17,27 @@ class Home extends StatelessWidget {
     heightSizedBox = screenHeight * 0.05;
   }
 
+  Widget playButton(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: Column(children: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => BoardView()));
+          },
+          child: const Text(
+            "Start game",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+            textScaleFactor: 1.5,
+          ),
+        ),
+      ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = (MediaQuery.of(context).size.width);
@@ -29,7 +49,7 @@ class Home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               MyTitle(widthSizedBox, heightSizedBox),
-              const EnterName()
+              playButton(context)
             ]));
   }
 }
