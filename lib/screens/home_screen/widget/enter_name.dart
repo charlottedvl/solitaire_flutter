@@ -9,20 +9,6 @@ class EnterName extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: Column(children: [
-        const TextField(
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              hintText: "Your name",
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                borderSide: BorderSide(width: 3, color: Colors.purple),
-              ),
-            )),
-        const SizedBox(height: 5),
         ElevatedButton(
           onPressed: () {
             Navigator.push(

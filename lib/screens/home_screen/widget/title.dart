@@ -56,13 +56,32 @@ class MyTitle extends StatelessWidget {
         SizedBox(
           height: heightSizedBox,
         ),
-        const Text(WELCOME_MSG_EN,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.purple,
-              fontSize: 2.0,
+        Stack(
+          children: <Widget>[
+            DefaultTextStyle(style: TextStyle(
+              fontSize: 30,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 2
+                ..color = Colors.purple,
             ),
-            textScaleFactor: 20.0),
+              child: const Text(
+                WELCOME_MSG_EN,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const DefaultTextStyle(
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.white,
+              ),
+              child: Text(
+                WELCOME_MSG_EN,
+                textAlign: TextAlign.center,
+              ),
+            )
+          ],
+        ),
       ],
     );
   }

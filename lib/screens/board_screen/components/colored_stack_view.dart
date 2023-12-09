@@ -70,7 +70,9 @@ class ColoredStackViewState extends State<ColoredStackView> {
                 },
                 onAccept: (data) {
                   if (data is List<PlayingCard>) {
-                    stack.push(data[0]);
+                    setState(() {
+                      stack.push(data[0]);
+                    });
                     widget.testIfFinish();
                   }
                 },
