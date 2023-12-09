@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:solitaire/backend/board.dart';
 import 'package:solitaire/backend/colum_card.dart';
 import 'package:solitaire/screens/board_screen/components/column_card_view.dart';
-import 'package:solitaire/screens/board_screen/components/finish_pop_up.dart';
 import 'package:solitaire/screens/board_screen/components/playing_card_deck_view.dart';
 import 'package:solitaire/screens/board_screen/components/colored_stack_view.dart';
 import 'package:solitaire/screens/board_screen/components/deck_view.dart';
+import 'package:solitaire/screens/victory_screen/victory.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class BoardView extends StatefulWidget {
@@ -29,22 +29,10 @@ class BoardViewState extends State<BoardView> {
   }
 
   void testIfFinish() {
-    setState(() {
-      FinishPopUpState.showPopUp = true;
-    });
-
     if (board.testIfFinish()) {
-      setState(() {
-        FinishPopUpState.showPopUp = true;
-      });
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const VictoryView()));
     }
-  }
-
-  void refresh() {
-    setState(() {
-      FinishPopUpState.showPopUp = false;
-      board = Board();
-    });
   }
 
   @override
@@ -76,11 +64,9 @@ class BoardViewState extends State<BoardView> {
                       board.nextCardsDeck,
                       board.displayDeck,
                       onPressedCallback: updatePlayingCardDeckView,
-                      key: UniqueKey(),
                     ),
-                    PlayingCardDeckView(key: UniqueKey(), board.displayDeck),
+                    PlayingCardDeckView(board.displayDeck),
                     ColoredStackView(
-                      key: UniqueKey(),
                       board.stacks,
                       testIfFinish: testIfFinish,
                     ),
@@ -93,14 +79,11 @@ class BoardViewState extends State<BoardView> {
                     for (ColumnCard column in board.columns) ...[
                       SizedBox(
                         width: cardWidth,
-                        child: ColumnCardView(key: UniqueKey(), column),
+                        child: ColumnCardView(column),
                       )
                     ]
                   ]),
             ]),
-            FinishPopUp(
-              refreshGame: refresh,
-            ),
           ]),
         ));
   }
