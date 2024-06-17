@@ -5,9 +5,16 @@ import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class PlayingCardDeckView extends StatefulWidget {
+  // Card to display
   Deck displayDeck;
+  // Number of move played by the player
+  int counter;
 
-  PlayingCardDeckView(this.displayDeck, {super.key});
+  PlayingCardDeckView({
+    super.key,
+    required this.displayDeck,
+    required this.counter
+});
 
   @override
   PlayingCardDeckViewState createState() => PlayingCardDeckViewState();
@@ -25,7 +32,7 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
   @override
   Widget build(BuildContext context) {
     double spacing = 25.0;
-    double height = cardHeight;
+    double height = originalCardHeight;
 
     int length = displayDeck.length;
     return SizedBox(

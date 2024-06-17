@@ -17,6 +17,8 @@ class BoardView extends StatefulWidget {
 
 class BoardViewState extends State<BoardView> {
   late Board board;
+  // Number of move played by the player
+  int counter = 0;
 
   @override
   void initState() {
@@ -25,7 +27,9 @@ class BoardViewState extends State<BoardView> {
   }
 
   void updatePlayingCardDeckView() {
-    setState(() {});
+    setState(() {
+      counter ++;
+    });
   }
 
   void testIfFinish() {
@@ -38,7 +42,10 @@ class BoardViewState extends State<BoardView> {
   @override
   Widget build(BuildContext context) {
     double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
-    double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.02;
+    double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.007;
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double width = screenWidth * 0.13;
 
     return Container(
         height: MediaQuery.of(context).size.height,
@@ -61,14 +68,22 @@ class BoardViewState extends State<BoardView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DeckView(
-                      board.nextCardsDeck,
-                      board.displayDeck,
+                      nextCardsDeck: board.nextCardsDeck,
+                      displayDeck: board.displayDeck,
                       onPressedCallback: updatePlayingCardDeckView,
+                      counter: counter
                     ),
-                    PlayingCardDeckView(board.displayDeck),
+                    PlayingCardDeckView(
+                      displayDeck: board.displayDeck,
+                      counter: counter,
+                    ),
+                    SizedBox(
+                      width: paddingHorizontal,
+                    ),
                     ColoredStackView(
-                      board.stacks,
+                      stacks: board.stacks,
                       testIfFinish: testIfFinish,
+                      counter: counter
                     ),
                   ]),
               const SizedBox(height: 5),
@@ -78,8 +93,12 @@ class BoardViewState extends State<BoardView> {
                   children: [
                     for (ColumnCard column in board.columns) ...[
                       SizedBox(
-                        width: cardWidth,
-                        child: ColumnCardView(column),
+                        width: width,
+                        child:
+                          ColumnCardView(
+                            column: column,
+                            counter: counter
+                        ),
                       )
                     ]
                   ]),
