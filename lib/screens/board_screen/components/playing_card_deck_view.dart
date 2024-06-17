@@ -52,12 +52,12 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                   child: j != displayDeck.cardToShow
                       // If there is more than 1 card to display,
                       // make the other ones not draggable
-                      ? CardView(card: displayDeck.getStack()[length - j])
+                      ? CardView(card: displayDeck.getStack()[length - ((displayDeck.cardToShow + 1) - j)])
                       : Draggable<List<PlayingCard>>(
-                          data: [displayDeck.getStack()[length - j]],
+                          data: [displayDeck.getStack()[length - ((displayDeck.cardToShow + 1) - j)]],
                           dragAnchorStrategy: pointerDragAnchorStrategy,
                           onDragCompleted: () {
-                            displayDeck.getStack().removeAt(length - j);
+                            displayDeck.getStack().removeAt(length - ((displayDeck.cardToShow + 1) - j));
                             setState(() {
                               if (displayDeck.cardToShow != 1) {
                                 displayDeck.cardToShow--;
@@ -65,7 +65,7 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                             });
                           },
                           feedback: CardView(
-                              card: displayDeck.getStack()[length - j]),
+                              card: displayDeck.getStack()[length - ((displayDeck.cardToShow + 1) - j)]),
                           childWhenDragging: displayDeck.cardToShow != 1 ||
                                   length < 2
                               ? Opacity(
@@ -74,10 +74,10 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                               // the deck has more than 2 cards,*
                               // then display a card when the last card is moving
                               : CardView(
-                                  card: displayDeck.getStack()[length - 2],
+                                  card: displayDeck.getStack()[length - ((displayDeck.cardToShow + 1) - 2)],
                                 ),
                           child: CardView(
-                              card: displayDeck.getStack()[length - j]),
+                              card: displayDeck.getStack()[length - ((displayDeck.cardToShow + 1) - j)]),
                         )),
             ],
           ],
