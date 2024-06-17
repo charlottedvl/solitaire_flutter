@@ -25,7 +25,8 @@ class Deck extends StackCard {
     }
     display.cardToShow = cardToShow;
     for (int index = 0; index < cardToShow; index++) {
-      display.push(pop());
+      PlayingCard card = pop();
+      display.push(card);
       display.getStack().last.setIsVisible(true);
     }
     // TODO: pass the settings correctly
