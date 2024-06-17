@@ -11,11 +11,17 @@ class EmptyStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double aspectRatio = originalCardWidth / originalCardHeight;
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    final double width = screenWidth * 0.13;
+    final double height = width / aspectRatio ;
     return Opacity(
       opacity: opacityEmptyStack,
       child: Container(
-        width: cardWidth,
-        height: cardHeight,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           image: icon != null
               ? DecorationImage(
