@@ -32,7 +32,12 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
   @override
   Widget build(BuildContext context) {
     double spacing = 25.0;
-    double height = originalCardHeight;
+    const double aspectRatio = originalCardWidth / originalCardHeight;
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    final double width = screenWidth * 0.13;
+    final double height = width / aspectRatio * 1.15;
 
     int length = displayDeck.length;
     return SizedBox(
