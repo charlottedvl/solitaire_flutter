@@ -39,7 +39,6 @@ class BoardViewState extends State<BoardView> {
     }
   }
 
-  @override
   Widget build(BuildContext context) {
     double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
     double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.007;
@@ -48,62 +47,70 @@ class BoardViewState extends State<BoardView> {
     final double width = screenWidth * 0.13;
 
     return Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/media/background.jpg"),
-            fit: BoxFit.cover,
-          ),
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/media/background.jpg"),
+          fit: BoxFit.cover,
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: paddingVertical,
-            horizontal: paddingHorizontal,
-          ),
-          child: Stack(children: [
-            Column(children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DeckView(
-                      nextCardsDeck: board.nextCardsDeck,
-                      displayDeck: board.displayDeck,
-                      onPressedCallback: updatePlayingCardDeckView,
-                      counter: counter
-                    ),
-                    PlayingCardDeckView(
-                      displayDeck: board.displayDeck,
-                      counter: counter,
-                    ),
-                    SizedBox(
-                      width: paddingHorizontal,
-                    ),
-                    ColoredStackView(
-                      stacks: board.stacks,
-                      testIfFinish: testIfFinish,
-                      counter: counter
-                    ),
-                  ]),
-              const SizedBox(height: 5),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (ColumnCard column in board.columns) ...[
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: paddingVertical,
+          horizontal: paddingHorizontal,
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DeckView(
+                        nextCardsDeck: board.nextCardsDeck,
+                        displayDeck: board.displayDeck,
+                        onPressedCallback: updatePlayingCardDeckView,
+                        counter: counter,
+                      ),
+                      PlayingCardDeckView(
+                        displayDeck: board.displayDeck,
+                        counter: counter,
+                      ),
                       SizedBox(
-                        width: width,
-                        child:
-                          ColumnCardView(
+                        width: paddingHorizontal,
+                      ),
+                      ColoredStackView(
+                        stacks: board.stacks,
+                        testIfFinish: testIfFinish,
+                        counter: counter,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (ColumnCard column in board.columns) ...[
+                        SizedBox(
+                          width: width,
+                          child: ColumnCardView(
                             column: column,
-                            counter: counter
-                        ),
-                      )
-                    ]
-                  ]),
-            ]),
-          ]),
-        ));
+                            counter: counter,
+                          ),
+                        )
+                      ]
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

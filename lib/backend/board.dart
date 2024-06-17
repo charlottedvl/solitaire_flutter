@@ -12,12 +12,16 @@ import 'package:solitaire/backend/playing_card.dart';
 class Board {
   List<ColorCard> colors = <ColorCard>[];
 
+  // Deck of remaining card
   Deck nextCardsDeck = Deck(<PlayingCard>[], 3);
+  // Display of cards (one by one or three by three)
   Deck displayDeck = Deck(<PlayingCard>[], 0);
 
+  // List of stack to fill
   List<ColoredStack> stacks =
       List<ColoredStack>.generate(4, (index) => ColoredStack(<PlayingCard>[]));
 
+  // List of the columns of cards
   List<ColumnCard> columns = List<ColumnCard>.generate(
       7,
       (index) => ColumnCard(ColumnDraggableCard(<PlayingCard>[]),

@@ -74,11 +74,12 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                               // the deck has more than 2 cards,*
                               // then display a card when the last card is moving
                               : CardView(
-                                  card: displayDeck.getStack()[length - ((displayDeck.cardToShow + 1) - 2)],
+                                  card: displayDeck.getStack()[length - 2],
                                 ),
                           child: CardView(
                               card: displayDeck.getStack()[length - ((displayDeck.cardToShow + 1) - j)]),
-                        )),
+                        )
+              ),
             ],
           ],
         ],
