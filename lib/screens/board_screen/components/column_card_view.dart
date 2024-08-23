@@ -14,7 +14,13 @@ class ColumnCardView extends StatefulWidget {
   // Number of move played by the player
   int counter;
 
-  ColumnCardView({super.key, required this.column, required this.counter});
+  Function saveMove;
+
+  ColumnCardView(
+      {super.key,
+      required this.column,
+      required this.counter,
+      required this.saveMove});
 
   @override
   ColumnCardViewState createState() => ColumnCardViewState();
@@ -112,6 +118,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
               }
               return false;
             }, onAccept: (data) {
+              widget.saveMove();
               if (data is List<PlayingCard>) {
                 addCardsToColumn(data);
               }

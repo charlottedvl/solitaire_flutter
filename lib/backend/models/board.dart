@@ -23,13 +23,16 @@ class Board {
   // List of the columns of cards
   late List<ColumnCard> columns;
 
+  Map<String, dynamic>? previousBoard;
+
   Board(
       bool isLoaded,
       List<ColorCard>? colors,
       Deck? nextCardsDeck,
       Deck? displayDeck,
       List<ColoredStack>? stacks,
-      List<ColumnCard>? columns) {
+      List<ColumnCard>? columns,
+      this.previousBoard) {
     if (colors != null) {
       this.colors = colors;
     } else {
@@ -134,6 +137,7 @@ class Board {
       'displayDeck': displayDeck.toJson(),
       'stacks': stacks.map((stack) => stack.toJson()).toList(),
       'columns': columns.map((column) => column.toJson()).toList(),
+      'previousBoard': previousBoard,
     };
     return json;
   }
@@ -150,7 +154,9 @@ class Board {
     List<ColumnCard> columns = (json['columns'] as List)
         .map((columnJson) => ColumnCard.fromJson(columnJson))
         .toList();
-    return Board(true, colors, nextCardsDeck, displayDeck, stacks, columns);
+    Map<String, dynamic>? previousBoard = json['previousBoard'];
+    return Board(true, colors, nextCardsDeck, displayDeck, stacks, columns,
+        previousBoard);
   }
 
   bool testIfFinish() {

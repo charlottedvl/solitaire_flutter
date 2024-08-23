@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
-import 'package:solitaire/screens/board_screen/board_view.dart';
-import 'package:solitaire/shared/constants.dart';
+import 'package:solitaire/screens/board_screen/board_screen.dart';
 
 class NavigationButton extends StatefulWidget {
   NavigationButton(
@@ -25,9 +24,9 @@ class NavigationButtonState extends State<NavigationButton> {
   }
 
   Future<void> startNewGame(context) async {
-    Board newBoard = Board(false, null, null, null, null, null);
+    Board newBoard = Board(false, null, null, null, null, null, null);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BoardView(board: newBoard)));
+        MaterialPageRoute(builder: (context) => BoardScreen(board: newBoard)));
   }
 
   @override
@@ -45,8 +44,9 @@ class NavigationButtonState extends State<NavigationButton> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoardView(
-                    board: board ?? Board(false, null, null, null, null, null),
+                  builder: (context) => BoardScreen(
+                    board: board ??
+                        Board(false, null, null, null, null, null, null),
                   ),
                 ),
               );

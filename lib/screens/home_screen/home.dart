@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
   double widthSizedBox = 0.1;
   double heightSizedBox = 0.1;
   double heightSpacing = 0.1;
-  Board board = Board(false, null, null, null, null, null);
+  Board board = Board(false, null, null, null, null, null, null);
 
   void calculateSize(double screenWidth, double screenHeight) {
     padding = screenWidth * 0.1;

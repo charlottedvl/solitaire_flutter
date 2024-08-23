@@ -11,7 +11,7 @@ import 'package:solitaire/screens/victory_screen/victory.dart';
 
 class BoardView extends StatefulWidget {
   Board board;
-  BoardView({super.key, required this.board});
+  BoardView({required Key key, required this.board}) : super(key: key);
 
   @override
   BoardViewState createState() => BoardViewState();
@@ -22,6 +22,22 @@ class BoardViewState extends State<BoardView> {
   int counter = 0;
   bool isGameFinished = false;
   late BoardProvider boardProvider;
+  late Board board;
+  Key boardKey = UniqueKey();
+
+  @override
+  void dispose() {
+    if (!isGameFinished) {
+      boardProvider.saveGame(board);
+    }
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    board = widget.board;
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -29,27 +45,16 @@ class BoardViewState extends State<BoardView> {
     boardProvider = context.read<BoardProvider>();
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    if (!isGameFinished) {
-      boardProvider.saveGame(widget.board);
-    }
-    super.dispose();
-  }
-
-  void updatePlayingCardDeckView() {
+  void saveMove() {
     setState(() {
       counter++;
+      Map<String, dynamic> boardMap = board.toJson();
+      board.previousBoard = boardMap;
     });
   }
 
   void testIfFinish() {
-    if (widget.board.testIfFinish()) {
+    if (board.testIfFinish()) {
       setState(() {
         isGameFinished = true;
       });
@@ -60,6 +65,10 @@ class BoardViewState extends State<BoardView> {
 
   @override
   Widget build(BuildContext context) {
+    print("rebuild");
+    if (board.columns[0].columnDraggableCard.getStack().length > 0) {
+      print(board.columns[0].columnDraggableCard.getStack()[0].value ?? "no");
+    }
     double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
     double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.007;
 
@@ -67,18 +76,13 @@ class BoardViewState extends State<BoardView> {
     final double width = screenWidth * 0.13;
 
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height * 0.90,
       width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/media/background.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: paddingVertical,
-          horizontal: paddingHorizontal,
+        padding: EdgeInsets.only(
+          top: paddingVertical,
+          left: paddingHorizontal,
+          right: paddingHorizontal,
         ),
         child: Column(
           children: [
@@ -90,20 +94,22 @@ class BoardViewState extends State<BoardView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       DeckView(
-                        nextCardsDeck: widget.board.nextCardsDeck,
-                        displayDeck: widget.board.displayDeck,
-                        onPressedCallback: updatePlayingCardDeckView,
+                        nextCardsDeck: board.nextCardsDeck,
+                        displayDeck: board.displayDeck,
+                        onPressedCallback: saveMove,
                         counter: counter,
                       ),
                       PlayingCardDeckView(
-                        displayDeck: widget.board.displayDeck,
+                        displayDeck: board.displayDeck,
                         counter: counter,
+                        saveMove: saveMove,
                       ),
                       SizedBox(
                         width: paddingHorizontal,
                       ),
                       ColoredStackView(
-                        stacks: widget.board.stacks,
+                        stacks: board.stacks,
+                        saveMove: saveMove,
                         testIfFinish: testIfFinish,
                         counter: counter,
                       ),
@@ -114,10 +120,11 @@ class BoardViewState extends State<BoardView> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      for (ColumnCard column in widget.board.columns) ...[
+                      for (ColumnCard column in board.columns) ...[
                         SizedBox(
                           width: width,
                           child: ColumnCardView(
+                            saveMove: saveMove,
                             column: column,
                             counter: counter,
                           ),
