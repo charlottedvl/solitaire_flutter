@@ -4,6 +4,7 @@ import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/shared/constants.dart';
 import 'package:solitaire/shared/widget/empty_stack.dart';
+import 'package:solitaire/shared/constants.dart';
 
 class ColoredStackView extends StatefulWidget {
   // Cards of a color
@@ -72,6 +73,9 @@ class ColoredStackViewState extends State<ColoredStackView> {
                           setState(() {});
                         },
                         feedback: CardView(card: card),
+                        childWhenDragging:
+                            Opacity(
+                                opacity: opacityHiddenCard, child: CardView()),
                         child: CardView(card: card),
                       )
                     : CardView(card: card)
