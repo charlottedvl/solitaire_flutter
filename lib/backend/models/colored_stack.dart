@@ -33,7 +33,10 @@ class ColoredStack extends StackCard {
     var stackJson = json['stack'] as List;
     List<PlayingCard> stack =
         stackJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
-    ColorCard? color = json['color'];
+    ColorCard? color;
+    if (json['color'] != null) {
+      color = ColorCard.fromJson(json['color']);
+    }
     return ColoredStack(stack, color);
   }
 
