@@ -35,10 +35,12 @@ class Home extends StatelessWidget {
         children: [
           MyTitle(widthSizedBox, heightSizedBox),
           NavigationButton(
-            title: "Start new game", isNewGameButton: true,
+            title: "Start new game",
+            isNewGameButton: true,
           ),
           NavigationButton(
-            title: "Continue game", isNewGameButton: false,
+            title: "Continue game",
+            isNewGameButton: false,
           ),
         ],
       ),
