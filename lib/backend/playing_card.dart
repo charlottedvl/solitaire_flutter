@@ -10,9 +10,15 @@ class PlayingCard {
 
   bool isVisible = false;
 
-  //Color edgeColor; // Black if the card is displayed, Withe if it is a background card
+  PlayingCard(this.value, this.color, this.media, bool? isVisible) {
+    this.isVisible = isVisible ?? false;
+  }
 
-  PlayingCard(this.value, this.color, this.media);
+  Map<String, dynamic> toJson() => {'colorCard': color.toJson(), 'value': value, 'media': media, 'isVisible': isVisible};
+
+  static PlayingCard fromJson(Map<String, dynamic> json) {
+    return PlayingCard(json['value'], ColorCard.fromJson(json['colorCard']), json['media'], json['isVisible']);
+  }
 
   String getMedia() {
     return media;

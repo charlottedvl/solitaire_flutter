@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solitaire/screens/home_screen/home.dart';
 import 'package:solitaire/screens/home_screen/widget/nav_bar.dart';
 import 'package:solitaire/screens/profile_screen/profile.dart';
@@ -16,7 +17,8 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  int selectedIndex = 0; // Initialize the selected index
+  // Initialize the selected index
+  int selectedIndex = 0;
 
   final List<Widget> children = [
     Home(),
@@ -24,8 +26,21 @@ class MyAppState extends State<MyApp> {
     const Settings(),
   ];
 
+  Future<void> clearAllData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    bool success = await prefs.clear();
+
+    if (success) {
+      print('All data in SharedPreferences has been cleared.');
+    } else {
+      print('Failed to clear SharedPreferences.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    clearAllData();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

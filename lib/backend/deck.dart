@@ -1,12 +1,25 @@
 import 'package:solitaire/backend/playing_card.dart';
 import 'package:solitaire/backend/stack_card.dart';
 
-class Deck extends StackCard {
+class Deck extends StackCard<PlayingCard> {
   int cardToShow;
 
   @override
   bool isCardAddable(card) {
     return false;
+  }
+
+
+  Map<String, dynamic> toJson() => {
+    'cards': stack.map((card) => card.toJson()).toList(),
+    'cardToShow': cardToShow,
+  };
+
+
+  static Deck fromJson(Map<String, dynamic> json) {
+    var cardsJson = json['cards'] as List;
+    List<PlayingCard> cards = cardsJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
+    return Deck(cards, json['cardToShow']);
   }
 
   Deck(List<PlayingCard> stack, this.cardToShow) {
@@ -15,7 +28,10 @@ class Deck extends StackCard {
 
   void flipDeck(Deck display) {
     while (display.getStack().isNotEmpty) {
-      push(display.pop());
+      PlayingCard? card = display.pop();
+      if (card != null) {
+        push(card);
+      }
     }
   }
 
@@ -25,8 +41,10 @@ class Deck extends StackCard {
     }
     display.cardToShow = cardToShow;
     for (int index = 0; index < cardToShow; index++) {
-      PlayingCard card = pop();
-      display.push(card);
+      PlayingCard? card = pop();
+      if (card != null) {
+        display.push(card);
+      }
       display.getStack().last.setIsVisible(true);
     }
     // TODO: pass the settings correctly
