@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class CardView extends StatelessWidget {

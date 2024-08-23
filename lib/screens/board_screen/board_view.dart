@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:solitaire/backend/board.dart';
-import 'package:solitaire/backend/colum_card.dart';
+import 'package:solitaire/backend/models/board.dart';
+import 'package:solitaire/backend/models/colum_card.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/board_screen/components/column_card_view.dart';
 import 'package:solitaire/screens/board_screen/components/playing_card_deck_view.dart';

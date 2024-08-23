@@ -1,6 +1,6 @@
-import 'package:solitaire/backend/column_draggable_card.dart';
-import 'package:solitaire/backend/column_hidden_card.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/column_draggable_card.dart';
+import 'package:solitaire/backend/models/column_hidden_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 
 class ColumnCard {
   ColumnHiddenCard columnHiddenCard;

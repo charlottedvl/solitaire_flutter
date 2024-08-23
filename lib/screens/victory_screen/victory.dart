@@ -1,6 +1,6 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/board.dart';
+import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/screens/board_screen/board_view.dart';
 
 class VictoryView extends StatefulWidget {

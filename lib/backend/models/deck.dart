@@ -1,5 +1,5 @@
-import 'package:solitaire/backend/playing_card.dart';
-import 'package:solitaire/backend/stack_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
+import 'package:solitaire/backend/models/stack_card.dart';
 
 class Deck extends StackCard<PlayingCard> {
   int cardToShow;
