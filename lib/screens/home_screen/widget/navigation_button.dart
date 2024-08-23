@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/board_screen/board_view.dart';
+import 'package:solitaire/shared/constants.dart';
 
 class NavigationButton extends StatefulWidget {
   NavigationButton(
@@ -31,10 +32,12 @@ class NavigationButtonState extends State<NavigationButton> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     board = context.watch<BoardProvider>().board;
     return Material(
       color: Colors.transparent,
-      child: Column(children: [
+      child:
         ElevatedButton(
           onPressed: () {
             if (widget.isNewGameButton) {
@@ -56,17 +59,18 @@ class NavigationButtonState extends State<NavigationButton> {
               }
             }
           },
+          style: ElevatedButton.styleFrom(
+              backgroundColor: green,
+          ),
           child: Text(
             widget.title,
-            style: TextStyle(
-              color: (widget.isNewGameButton || board != null)
-                  ? Colors.white
-                  : Colors.black,
+            style: const TextStyle(
+              color: Colors.white
             ),
             textScaleFactor: 1.5,
           ),
         ),
-      ]),
+
     );
   }
 }

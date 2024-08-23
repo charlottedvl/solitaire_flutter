@@ -13,12 +13,14 @@ class Home extends StatelessWidget {
   double padding = 0.1;
   double widthSizedBox = 0.1;
   double heightSizedBox = 0.1;
+  double heightSpacing = 0.1;
   Board board = Board(false, null, null, null, null, null);
 
   void calculateSize(double screenWidth, double screenHeight) {
     padding = screenWidth * 0.1;
     widthSizedBox = screenWidth * 0.02;
     heightSizedBox = screenHeight * 0.05;
+    heightSpacing = screenHeight * 0.03;
   }
 
   @override
@@ -34,14 +36,19 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           MyTitle(widthSizedBox, heightSizedBox),
-          NavigationButton(
-            title: "Start new game",
-            isNewGameButton: true,
-          ),
-          NavigationButton(
-            title: "Continue game",
-            isNewGameButton: false,
-          ),
+          Column(
+            children: [
+              NavigationButton(
+                title: "Start new game",
+                isNewGameButton: true,
+              ),
+              SizedBox(height: heightSpacing,),
+              NavigationButton(
+                title: "Continue game",
+                isNewGameButton: false,
+              ),
+            ],
+          )
         ],
       ),
     );

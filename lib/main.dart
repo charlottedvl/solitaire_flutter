@@ -35,9 +35,6 @@ class MyAppState extends State<MyApp> {
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple),
-          ),
           home: Scaffold(
             backgroundColor: Colors.white,
             body: Container(
