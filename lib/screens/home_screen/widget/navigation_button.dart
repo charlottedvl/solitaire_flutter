@@ -5,7 +5,8 @@ import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/board_screen/board_view.dart';
 
 class NavigationButton extends StatefulWidget {
-  NavigationButton({super.key, required this.title, required this.isNewGameButton});
+  NavigationButton(
+      {super.key, required this.title, required this.isNewGameButton});
 
   final String title;
   bool isNewGameButton = true;
@@ -44,11 +45,10 @@ class NavigationButtonState extends State<NavigationButton> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        BoardView(
-                          board: board ??
-                              Board(false, null, null, null, null, null),
-                        ),
+                    builder: (context) => BoardView(
+                      board:
+                          board ?? Board(false, null, null, null, null, null),
+                    ),
                   ),
                 );
               } else {
@@ -59,7 +59,9 @@ class NavigationButtonState extends State<NavigationButton> {
           child: Text(
             widget.title,
             style: TextStyle(
-              color: (widget.isNewGameButton || board != null) ? Colors.white : Colors.black,
+              color: (widget.isNewGameButton || board != null)
+                  ? Colors.white
+                  : Colors.black,
             ),
             textScaleFactor: 1.5,
           ),
