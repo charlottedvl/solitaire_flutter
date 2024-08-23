@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solitaire/shared/constants.dart';
 
 class NavBar extends StatefulWidget {
   final int selectedIndex;
@@ -38,7 +39,7 @@ class NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.green[100],
+      backgroundColor: lightGrey,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -50,7 +51,8 @@ class NavBarState extends State<NavBar> {
         ),
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.purple,
+      selectedItemColor: green,
+      unselectedItemColor: grey,
       onTap: onItemTapped,
     );
   }

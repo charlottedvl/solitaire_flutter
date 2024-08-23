@@ -17,3 +17,5 @@ const opacityHiddenCard = 0.0;
 
 /// Color constants
 const green = Color(0xff236429);
+const lightGrey = Color(0xffBECCBF);
+const grey = Color(0xffA3A3A3);

@@ -42,7 +42,9 @@ class Home extends StatelessWidget {
                 title: "Start new game",
                 isNewGameButton: true,
               ),
-              SizedBox(height: heightSpacing,),
+              SizedBox(
+                height: heightSpacing,
+              ),
               NavigationButton(
                 title: "Continue game",
                 isNewGameButton: false,
