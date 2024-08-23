@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solitaire/backend/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
-import 'package:solitaire/screens/board_screen/board_view.dart';
-import 'package:solitaire/screens/home_screen/widget/continue_game_button.dart';
-import 'package:solitaire/screens/home_screen/widget/new_game_button.dart';
+import 'package:solitaire/screens/home_screen/widget/navigation_button.dart';
 import 'package:solitaire/screens/home_screen/widget/title.dart';
 
 class Home extends StatelessWidget {
@@ -37,12 +34,12 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           MyTitle(widthSizedBox, heightSizedBox),
-          const NewGameButton(
-            title: "Start new game",
+          NavigationButton(
+            title: "Start new game", isNewGameButton: true,
           ),
-          const ContinueGameButton(
-            title: "Continue game",
-          )
+          NavigationButton(
+            title: "Continue game", isNewGameButton: false,
+          ),
         ],
       ),
     );
