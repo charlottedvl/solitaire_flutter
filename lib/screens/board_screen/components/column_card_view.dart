@@ -14,11 +14,7 @@ class ColumnCardView extends StatefulWidget {
   // Number of move played by the player
   int counter;
 
-  ColumnCardView({
-    super.key,
-    required this.column,
-    required this.counter
-});
+  ColumnCardView({super.key, required this.column, required this.counter});
 
   @override
   ColumnCardViewState createState() => ColumnCardViewState();
@@ -67,7 +63,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
     setState(() {
       stackCopy = List.from(columnDraggable.getStack());
       opacities = List.generate(stackCopy.length, (index) => 1.0);
-      widget.counter ++;
+      widget.counter++;
     });
   }
 
@@ -78,7 +74,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     final double width = screenWidth * 0.13;
-    final double height = width / aspectRatio ;
+    final double height = width / aspectRatio;
     double spacing = 25.0;
     double totalHeight = 550;
     return SizedBox(

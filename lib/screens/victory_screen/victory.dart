@@ -16,7 +16,8 @@ class VictoryViewState extends State<VictoryView> {
   @override
   void initState() {
     super.initState();
-    confettiController = ConfettiController(duration: const Duration(seconds: 1));
+    confettiController =
+        ConfettiController(duration: const Duration(seconds: 1));
     confettiController.play();
   }
 
@@ -30,7 +31,10 @@ class VictoryViewState extends State<VictoryView> {
     return ElevatedButton(
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BoardView(board: Board(false, null, null, null, null, null))));
+            context,
+            MaterialPageRoute(
+                builder: (context) => BoardView(
+                    board: Board(false, null, null, null, null, null))));
       },
       child: const Text(
         "Play again",
@@ -47,14 +51,8 @@ class VictoryViewState extends State<VictoryView> {
     return Stack(
       children: [
         Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/media/background.jpg"),
@@ -69,13 +67,14 @@ class VictoryViewState extends State<VictoryView> {
                 Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
-                    DefaultTextStyle(style: TextStyle(
-                      fontSize: 30,
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 2
-                        ..color = Colors.purple,
-                    ),
+                    DefaultTextStyle(
+                      style: TextStyle(
+                        fontSize: 30,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 2
+                          ..color = Colors.purple,
+                      ),
                       child: const Text(
                         "Congratulations !",
                         textAlign: TextAlign.center,

@@ -37,7 +37,7 @@ class ColoredStackViewState extends State<ColoredStackView> {
   void addCardsToStack(List<PlayingCard> data, ColoredStack stack) {
     setState(() {
       stack.push(data[0]);
-      widget.counter ++;
+      widget.counter++;
     });
     widget.testIfFinish();
   }
@@ -49,7 +49,7 @@ class ColoredStackViewState extends State<ColoredStackView> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     final double width = screenWidth * 0.13;
-    final double height = width / aspectRatio ;
+    final double height = width / aspectRatio;
 
     return Row(children: [
       for (ColoredStack stack in stacks) ...[

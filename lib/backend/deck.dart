@@ -9,16 +9,15 @@ class Deck extends StackCard<PlayingCard> {
     return false;
   }
 
-
   Map<String, dynamic> toJson() => {
-    'cards': stack.map((card) => card.toJson()).toList(),
-    'cardToShow': cardToShow,
-  };
-
+        'cards': stack.map((card) => card.toJson()).toList(),
+        'cardToShow': cardToShow,
+      };
 
   static Deck fromJson(Map<String, dynamic> json) {
     var cardsJson = json['cards'] as List;
-    List<PlayingCard> cards = cardsJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
+    List<PlayingCard> cards =
+        cardsJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
     return Deck(cards, json['cardToShow']);
   }
 

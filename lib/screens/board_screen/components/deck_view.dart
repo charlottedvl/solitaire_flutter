@@ -10,13 +10,12 @@ class DeckView extends StatelessWidget {
   // Number of move played by the player
   int counter;
 
-  DeckView({
-    super.key,
-    required this.nextCardsDeck,
-    required this.displayDeck,
-    required this.onPressedCallback,
-    required this.counter
-});
+  DeckView(
+      {super.key,
+      required this.nextCardsDeck,
+      required this.displayDeck,
+      required this.onPressedCallback,
+      required this.counter});
 
   @override
   Widget build(BuildContext context) {
