@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/colum_card.dart';
-import 'package:solitaire/backend/column_draggable_card.dart';
-import 'package:solitaire/backend/column_hidden_card.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/colum_card.dart';
+import 'package:solitaire/backend/models/column_draggable_card.dart';
+import 'package:solitaire/backend/models/column_hidden_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/screens/board_screen/widgets/draggable_card.dart';
 import 'package:solitaire/shared/constants.dart';

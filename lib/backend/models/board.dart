@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/color_card.dart';
-import 'package:solitaire/backend/colored_stack.dart';
-import 'package:solitaire/backend/colum_card.dart';
-import 'package:solitaire/backend/column_draggable_card.dart';
-import 'package:solitaire/backend/column_hidden_card.dart';
-import 'package:solitaire/backend/deck.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/color_card.dart';
+import 'package:solitaire/backend/models/colored_stack.dart';
+import 'package:solitaire/backend/models/colum_card.dart';
+import 'package:solitaire/backend/models/column_draggable_card.dart';
+import 'package:solitaire/backend/models/column_hidden_card.dart';
+import 'package:solitaire/backend/models/deck.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 
 class Board {
   late List<ColorCard> colors;

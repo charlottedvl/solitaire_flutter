@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:solitaire/backend/board.dart';
+import 'package:solitaire/backend/models/board.dart';
 
 //TODO : avoid prints
 class BoardProvider extends ChangeNotifier {

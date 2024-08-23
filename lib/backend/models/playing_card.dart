@@ -1,5 +1,5 @@
-import 'package:solitaire/backend/color_card.dart';
-import 'package:solitaire/backend/stack_card.dart';
+import 'package:solitaire/backend/models/color_card.dart';
+import 'package:solitaire/backend/models/stack_card.dart';
 
 class PlayingCard {
   ColorCard color;

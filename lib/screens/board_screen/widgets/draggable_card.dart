@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/colum_card.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/colum_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 
 class DraggableCard extends StatefulWidget {

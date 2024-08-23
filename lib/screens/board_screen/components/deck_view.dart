@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/deck.dart';
+import 'package:solitaire/backend/models/deck.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/shared/widget/empty_stack.dart';
 
