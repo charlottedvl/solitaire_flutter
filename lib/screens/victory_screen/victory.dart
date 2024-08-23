@@ -1,7 +1,7 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/screens/board_screen/board_view.dart';
+import 'package:solitaire/screens/board_screen/board_screen.dart';
 
 class VictoryView extends StatefulWidget {
   const VictoryView({Key? key}) : super(key: key);
@@ -33,8 +33,8 @@ class VictoryViewState extends State<VictoryView> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => BoardView(
-                    board: Board(false, null, null, null, null, null))));
+                builder: (context) => BoardScreen(
+                    board: Board(false, null, null, null, null, null, null))));
       },
       child: const Text(
         "Play again",

@@ -4,7 +4,6 @@ import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/shared/constants.dart';
 import 'package:solitaire/shared/widget/empty_stack.dart';
-import 'package:solitaire/shared/constants.dart';
 
 class ColoredStackView extends StatefulWidget {
   // Cards of a color
@@ -14,11 +13,14 @@ class ColoredStackView extends StatefulWidget {
   // Number of move played by the player
   int counter;
 
+  Function() saveMove;
+
   ColoredStackView({
     super.key,
     required this.stacks,
     required this.testIfFinish,
     required this.counter,
+    required this.saveMove,
   });
 
   @override
@@ -87,6 +89,7 @@ class ColoredStackViewState extends State<ColoredStackView> {
                   return false;
                 },
                 onAccept: (data) {
+                  widget.saveMove();
                   if (data is List<PlayingCard>) {
                     addCardsToStack(data, stack);
                   }
