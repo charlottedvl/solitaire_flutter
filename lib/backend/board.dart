@@ -23,7 +23,13 @@ class Board {
   // List of the columns of cards
   late List<ColumnCard> columns;
 
-  Board(bool isLoaded, List<ColorCard>? colors, Deck? nextCardsDeck, Deck? displayDeck, List<ColoredStack>? stacks, List<ColumnCard>? columns) {
+  Board(
+      bool isLoaded,
+      List<ColorCard>? colors,
+      Deck? nextCardsDeck,
+      Deck? displayDeck,
+      List<ColoredStack>? stacks,
+      List<ColumnCard>? columns) {
     if (colors != null) {
       this.colors = colors;
     } else {
@@ -51,7 +57,8 @@ class Board {
     if (stacks != null) {
       this.stacks = stacks;
     } else {
-      this.stacks = List<ColoredStack>.generate(4, (index) => ColoredStack(<PlayingCard>[], null));
+      this.stacks = List<ColoredStack>.generate(
+          4, (index) => ColoredStack(<PlayingCard>[], null));
     }
 
     if (columns != null) {
@@ -59,7 +66,7 @@ class Board {
     } else {
       this.columns = List<ColumnCard>.generate(
           7,
-              (index) => ColumnCard(ColumnDraggableCard(<PlayingCard>[]),
+          (index) => ColumnCard(ColumnDraggableCard(<PlayingCard>[]),
               ColumnHiddenCard(<PlayingCard>[])));
     }
 
@@ -91,9 +98,7 @@ class Board {
 
   void initializeOneColumn(Random random, int indexColumn) {
     int index;
-    for (int numberOfCards = 0;
-    numberOfCards < indexColumn;
-    numberOfCards++) {
+    for (int numberOfCards = 0; numberOfCards < indexColumn; numberOfCards++) {
       index = random.nextInt(nextCardsDeck.length);
       columns[indexColumn]
           .columnHiddenCard
@@ -103,11 +108,7 @@ class Board {
     columns[indexColumn]
         .columnDraggableCard
         .push(nextCardsDeck.getStack().removeAt(index));
-    columns[indexColumn]
-        .columnDraggableCard
-        .getStack()
-        .last
-        .setIsVisible(true);
+    columns[indexColumn].columnDraggableCard.getStack().last.setIsVisible(true);
   }
 
   List<ColorCard> getColors() {
@@ -138,11 +139,17 @@ class Board {
   }
 
   static Board fromJson(Map<String, dynamic> json) {
-    List<ColorCard> colors = (json['colors'] as List).map((colorJson) => ColorCard.fromJson(colorJson)).toList();
+    List<ColorCard> colors = (json['colors'] as List)
+        .map((colorJson) => ColorCard.fromJson(colorJson))
+        .toList();
     Deck nextCardsDeck = Deck.fromJson(json['nextCardsDeck']);
     Deck displayDeck = Deck.fromJson(json['displayDeck']);
-    List<ColoredStack> stacks = (json['stacks'] as List).map((stackJson) => ColoredStack.fromJson(stackJson)).toList();
-    List<ColumnCard> columns = (json['columns'] as List).map((columnJson) => ColumnCard.fromJson(columnJson)).toList();
+    List<ColoredStack> stacks = (json['stacks'] as List)
+        .map((stackJson) => ColoredStack.fromJson(stackJson))
+        .toList();
+    List<ColumnCard> columns = (json['columns'] as List)
+        .map((columnJson) => ColumnCard.fromJson(columnJson))
+        .toList();
     return Board(true, colors, nextCardsDeck, displayDeck, stacks, columns);
   }
 

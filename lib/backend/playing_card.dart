@@ -14,10 +14,16 @@ class PlayingCard {
     this.isVisible = isVisible ?? false;
   }
 
-  Map<String, dynamic> toJson() => {'colorCard': color.toJson(), 'value': value, 'media': media, 'isVisible': isVisible};
+  Map<String, dynamic> toJson() => {
+        'colorCard': color.toJson(),
+        'value': value,
+        'media': media,
+        'isVisible': isVisible
+      };
 
   static PlayingCard fromJson(Map<String, dynamic> json) {
-    return PlayingCard(json['value'], ColorCard.fromJson(json['colorCard']), json['media'], json['isVisible']);
+    return PlayingCard(json['value'], ColorCard.fromJson(json['colorCard']),
+        json['media'], json['isVisible']);
   }
 
   String getMedia() {

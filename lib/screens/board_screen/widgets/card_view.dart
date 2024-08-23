@@ -21,7 +21,7 @@ class CardView extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     final double width = screenWidth * 0.13;
-    final double height = width / aspectRatio ;
+    final double height = width / aspectRatio;
     return Opacity(
         opacity: opacity,
         child: SizedBox(

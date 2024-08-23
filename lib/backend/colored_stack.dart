@@ -25,13 +25,14 @@ class ColoredStack extends StackCard {
   }
 
   Map<String, dynamic> toJson() => {
-    'stack': stack.map((card) => card.toJson()).toList(),
-    'color': color?.toJson(),
-  };
+        'stack': stack.map((card) => card.toJson()).toList(),
+        'color': color?.toJson(),
+      };
 
   static ColoredStack fromJson(Map<String, dynamic> json) {
     var stackJson = json['stack'] as List;
-    List<PlayingCard> stack = stackJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
+    List<PlayingCard> stack =
+        stackJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
     ColorCard? color = json['color'];
     return ColoredStack(stack, color);
   }

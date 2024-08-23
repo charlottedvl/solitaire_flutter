@@ -18,12 +18,13 @@ class ColumnDraggableCard extends StackCard {
   }
 
   Map<String, dynamic> toJson() => {
-    'cards': stack.map((card) => card.toJson()).toList(),
-  };
+        'cards': stack.map((card) => card.toJson()).toList(),
+      };
 
   static ColumnDraggableCard fromJson(Map<String, dynamic> json) {
     var cardsJson = json['cards'] as List;
-    List<PlayingCard> cards = cardsJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
+    List<PlayingCard> cards =
+        cardsJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
     return ColumnDraggableCard(cards);
   }
 

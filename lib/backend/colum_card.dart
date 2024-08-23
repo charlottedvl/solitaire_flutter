@@ -9,9 +9,9 @@ class ColumnCard {
   ColumnCard(this.columnDraggableCard, this.columnHiddenCard);
 
   Map<String, dynamic> toJson() => {
-    'draggableCard': columnDraggableCard.toJson(),
-    'hiddenCard': columnHiddenCard.toJson(),
-  };
+        'draggableCard': columnDraggableCard.toJson(),
+        'hiddenCard': columnHiddenCard.toJson(),
+      };
 
   static ColumnCard fromJson(Map<String, dynamic> json) {
     return ColumnCard(
