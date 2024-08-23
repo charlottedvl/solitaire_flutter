@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:solitaire/backend/board.dart';
 import 'package:solitaire/backend/colum_card.dart';
+import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/board_screen/components/column_card_view.dart';
 import 'package:solitaire/screens/board_screen/components/playing_card_deck_view.dart';
 import 'package:solitaire/screens/board_screen/components/colored_stack_view.dart';
@@ -22,6 +21,13 @@ class BoardViewState extends State<BoardView> {
   // Number of move played by the player
   int counter = 0;
   bool isGameFinished = false;
+  late BoardProvider boardProvider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    boardProvider = context.read<BoardProvider>();
+  }
 
   @override
   void initState() {
@@ -31,15 +37,9 @@ class BoardViewState extends State<BoardView> {
   @override
   void dispose() {
     if (!isGameFinished) {
-      saveGame();
+      boardProvider.saveGame(widget.board);
     }
     super.dispose();
-  }
-
-  Future<void> saveGame() async {
-    final prefs = await SharedPreferences.getInstance();
-    Map<String, dynamic> boardJson = widget.board.toJson();
-    await prefs.setString('gameState', jsonEncode(boardJson));
   }
 
   void updatePlayingCardDeckView() {
@@ -58,6 +58,7 @@ class BoardViewState extends State<BoardView> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
     double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.007;
