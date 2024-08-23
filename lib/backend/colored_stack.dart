@@ -5,7 +5,7 @@ import 'package:solitaire/backend/stack_card.dart';
 class ColoredStack extends StackCard {
   ColorCard? color;
 
-  ColoredStack(List<PlayingCard> stack) {
+  ColoredStack(List<PlayingCard> stack, this.color) {
     this.stack = stack;
   }
 
@@ -22,6 +22,18 @@ class ColoredStack extends StackCard {
       }
     }
     return false;
+  }
+
+  Map<String, dynamic> toJson() => {
+    'stack': stack.map((card) => card.toJson()).toList(),
+    'color': color?.toJson(),
+  };
+
+  static ColoredStack fromJson(Map<String, dynamic> json) {
+    var stackJson = json['stack'] as List;
+    List<PlayingCard> stack = stackJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
+    ColorCard? color = json['color'];
+    return ColoredStack(stack, color);
   }
 
   void testIfEmpty() {

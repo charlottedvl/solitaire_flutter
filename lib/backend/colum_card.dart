@@ -8,6 +8,18 @@ class ColumnCard {
 
   ColumnCard(this.columnDraggableCard, this.columnHiddenCard);
 
+  Map<String, dynamic> toJson() => {
+    'draggableCard': columnDraggableCard.toJson(),
+    'hiddenCard': columnHiddenCard.toJson(),
+  };
+
+  static ColumnCard fromJson(Map<String, dynamic> json) {
+    return ColumnCard(
+      ColumnDraggableCard.fromJson(json['draggableCard']),
+      ColumnHiddenCard.fromJson(json['hiddenCard']),
+    );
+  }
+
   int getLength() {
     return (columnDraggableCard.length + columnHiddenCard.length);
   }

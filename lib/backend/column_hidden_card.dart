@@ -10,4 +10,14 @@ class ColumnHiddenCard extends StackCard {
   bool isCardAddable(card) {
     return false;
   }
+
+  Map<String, dynamic> toJson() => {
+    'cards': stack.map((card) => card.toJson()).toList(),
+  };
+
+  static ColumnHiddenCard fromJson(Map<String, dynamic> json) {
+    var cardsJson = json['cards'] as List;
+    List<PlayingCard> cards = cardsJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
+    return ColumnHiddenCard(cards);
+  }
 }

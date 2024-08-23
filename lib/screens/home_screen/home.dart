@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:solitaire/backend/board.dart';
 import 'package:solitaire/screens/board_screen/board_view.dart';
 import 'package:solitaire/screens/home_screen/widget/title.dart';
 
@@ -17,18 +21,31 @@ class Home extends StatelessWidget {
     heightSizedBox = screenHeight * 0.05;
   }
 
-  Widget playButton(BuildContext context) {
+  Future<Board> loadGame() async {
+    Board board;
+    final prefs = await SharedPreferences.getInstance();
+    String? savedBoard = prefs.getString('gameState');
+    if (savedBoard != null) {
+      board = Board.fromJson(jsonDecode(savedBoard));
+    } else {
+      board = Board(false, null, null, null, null, null);
+    }
+    return board;
+  }
+
+  Future<Widget> playButton(BuildContext context, String title) async {
+    Board board = await loadGame();
     return Material(
       color: Colors.transparent,
       child: Column(children: [
         ElevatedButton(
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => BoardView()));
+                context, MaterialPageRoute(builder: (context) => BoardView(board: board)));
           },
-          child: const Text(
-            "Start game",
-            style: TextStyle(
+          child: Text(
+            title,
+            style: const TextStyle(
               color: Colors.white,
             ),
             textScaleFactor: 1.5,
@@ -40,16 +57,32 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = (MediaQuery.of(context).size.width);
-    double screenHeight = (MediaQuery.of(context).size.height);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     calculateSize(screenWidth, screenHeight);
+
     return Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MyTitle(widthSizedBox, heightSizedBox),
-              playButton(context)
-            ]));
+      padding: EdgeInsets.all(padding),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          MyTitle(widthSizedBox, heightSizedBox),
+          FutureBuilder<Widget>(
+            future: playButton(context, "Start new game"),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                return snapshot.data!;
+              } else {
+                return SizedBox();
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

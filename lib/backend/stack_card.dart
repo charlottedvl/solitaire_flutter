@@ -1,27 +1,28 @@
-abstract class StackCard<PlayingCard> {
-  List<PlayingCard> stack = <PlayingCard>[];
+abstract class StackCard<T> {
+  List<T> stack = <T>[];
 
   int get length => stack.length;
 
-  bool isCardAddable(List<PlayingCard> cards);
+  bool isCardAddable(List<T> cards);
 
   bool canPop() => stack.isNotEmpty;
 
-  List<PlayingCard> getStack() {
+  List<T> getStack() {
     return stack;
   }
 
-  void push(PlayingCard card) {
+  void push(T card) {
     stack.add(card);
   }
 
-  PlayingCard? pop() {
+  T? pop() {
     if (canPop()) {
-      PlayingCard lastCard = stack.last;
+      T lastCard = stack.last;
       stack.removeLast();
       return lastCard;
     }
+    return null;
   }
 
-  PlayingCard peak() => stack.last;
+  T peak() => stack.last;
 }
