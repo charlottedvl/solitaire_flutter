@@ -73,9 +73,8 @@ class ColoredStackViewState extends State<ColoredStackView> {
                           setState(() {});
                         },
                         feedback: CardView(card: card),
-                        childWhenDragging:
-                            Opacity(
-                                opacity: opacityHiddenCard, child: CardView()),
+                        childWhenDragging: Opacity(
+                            opacity: opacityHiddenCard, child: CardView()),
                         child: CardView(card: card),
                       )
                     : CardView(card: card)
