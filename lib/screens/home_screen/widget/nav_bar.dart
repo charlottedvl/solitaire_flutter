@@ -52,7 +52,7 @@ class NavBarState extends State<NavBar> {
       ],
       currentIndex: selectedIndex,
       selectedItemColor: green,
-      unselectedItemColor: grey,
+      unselectedItemColor: Colors.white70,
       onTap: onItemTapped,
     );
   }
