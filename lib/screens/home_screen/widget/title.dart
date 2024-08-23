@@ -28,7 +28,7 @@ class MyTitle extends StatelessWidget {
           for (String card in cards) ...[
             if (card.isNotEmpty) ...[
               Container(
-                width: 60.7, // Adjust the width and height as needed
+                width: 60.7,
                 height: 97.1,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -56,32 +56,12 @@ class MyTitle extends StatelessWidget {
         SizedBox(
           height: heightSizedBox,
         ),
-        Stack(
-          children: <Widget>[
-            DefaultTextStyle(
-              style: TextStyle(
-                fontSize: 30,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 2
-                  ..color = Colors.purple,
-              ),
-              child: const Text(
-                WELCOME_MSG_EN,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const DefaultTextStyle(
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-              ),
-              child: Text(
-                WELCOME_MSG_EN,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
+        DefaultTextStyle(
+          style: Theme.of(context).textTheme.titleLarge ?? TextStyle(),
+          child: const Text(
+            WELCOME_MSG_EN,
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

@@ -1,1 +1,1 @@
-const WELCOME_MSG_EN = 'Hey, you\'re back';
+const WELCOME_MSG_EN = 'Hey, you\'re back!';
