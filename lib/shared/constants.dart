@@ -4,8 +4,8 @@
 const double leftSpacing = 0;
 
 /// Constants related to cards size
-const double cardWidth = 50.0;
-const double cardHeight = 79.0;
+const double originalCardWidth = 1821;
+const double originalCardHeight = 2910;
 const double cardRadius = 3.5;
 const double emptyStackBorderWidth = 3.0;
 

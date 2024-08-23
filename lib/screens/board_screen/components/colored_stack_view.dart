@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/colored_stack.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/colored_stack.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/shared/constants.dart';
 import 'package:solitaire/shared/widget/empty_stack.dart';
@@ -10,11 +10,14 @@ class ColoredStackView extends StatefulWidget {
   List<ColoredStack> stacks;
   // Test if the game is over
   Function testIfFinish;
+  // Number of move played by the player
+  int counter;
 
-  ColoredStackView(
-    this.stacks, {
+  ColoredStackView({
     super.key,
+    required this.stacks,
     required this.testIfFinish,
+    required this.counter,
   });
 
   @override
@@ -31,10 +34,22 @@ class ColoredStackViewState extends State<ColoredStackView> {
     stacks = widget.stacks;
   }
 
+  void addCardsToStack(List<PlayingCard> data, ColoredStack stack) {
+    setState(() {
+      stack.push(data[0]);
+      widget.counter++;
+    });
+    widget.testIfFinish();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double height = cardHeight;
-    double width = cardWidth;
+    const double aspectRatio = originalCardWidth / originalCardHeight;
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    final double width = screenWidth * 0.13;
+    final double height = width / aspectRatio;
 
     return Row(children: [
       for (ColoredStack stack in stacks) ...[
@@ -70,10 +85,7 @@ class ColoredStackViewState extends State<ColoredStackView> {
                 },
                 onAccept: (data) {
                   if (data is List<PlayingCard>) {
-                    setState(() {
-                      stack.push(data[0]);
-                    });
-                    widget.testIfFinish();
+                    addCardsToStack(data, stack);
                   }
                 },
                 builder: (
@@ -81,9 +93,9 @@ class ColoredStackViewState extends State<ColoredStackView> {
                   List<dynamic> accepted,
                   List<dynamic> rejected,
                 ) {
-                  return const SizedBox(
-                    width: cardWidth,
-                    height: cardHeight,
+                  return SizedBox(
+                    width: width,
+                    height: height,
                   );
                 },
               ),

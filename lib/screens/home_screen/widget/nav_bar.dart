@@ -45,10 +45,6 @@ class NavBarState extends State<NavBar> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: 'Settings',
         ),

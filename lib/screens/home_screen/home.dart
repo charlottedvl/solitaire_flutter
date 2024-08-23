@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/screens/home_screen/widget/enter_name.dart';
+import 'package:provider/provider.dart';
+import 'package:solitaire/backend/models/board.dart';
+import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/screens/home_screen/widget/navigation_button.dart';
 import 'package:solitaire/screens/home_screen/widget/title.dart';
-import 'package:solitaire/shared/string_constants.dart';
 
 class Home extends StatelessWidget {
   Home({
@@ -11,6 +13,7 @@ class Home extends StatelessWidget {
   double padding = 0.1;
   double widthSizedBox = 0.1;
   double heightSizedBox = 0.1;
+  Board board = Board(false, null, null, null, null, null);
 
   void calculateSize(double screenWidth, double screenHeight) {
     padding = screenWidth * 0.1;
@@ -20,16 +23,27 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = (MediaQuery.of(context).size.width);
-    double screenHeight = (MediaQuery.of(context).size.height);
+    context.read<BoardProvider>().loadGame();
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     calculateSize(screenWidth, screenHeight);
+
     return Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MyTitle(widthSizedBox, heightSizedBox),
-              const EnterName()
-            ]));
+      padding: EdgeInsets.all(padding),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          MyTitle(widthSizedBox, heightSizedBox),
+          NavigationButton(
+            title: "Start new game",
+            isNewGameButton: true,
+          ),
+          NavigationButton(
+            title: "Continue game",
+            isNewGameButton: false,
+          ),
+        ],
+      ),
+    );
   }
 }

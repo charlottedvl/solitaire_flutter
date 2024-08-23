@@ -1,14 +1,40 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/screens/board_screen/board_view.dart';
 
-class VictoryView extends StatelessWidget {
-  const VictoryView({super.key});
+class VictoryView extends StatefulWidget {
+  const VictoryView({Key? key}) : super(key: key);
+
+  @override
+  VictoryViewState createState() => VictoryViewState();
+}
+
+class VictoryViewState extends State<VictoryView> {
+  late ConfettiController confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    confettiController =
+        ConfettiController(duration: const Duration(seconds: 1));
+    confettiController.play();
+  }
+
+  @override
+  void dispose() {
+    confettiController.dispose();
+    super.dispose();
+  }
 
   Widget playAgainButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BoardView()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => BoardView(
+                    board: Board(false, null, null, null, null, null))));
       },
       child: const Text(
         "Play again",
@@ -22,49 +48,67 @@ class VictoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double padding = 0.1;
-    return Container(
-        height: MediaQuery.of(context).size.height,
-    width: MediaQuery.of(context).size.width,
-    decoration: const BoxDecoration(
-    image: DecorationImage(
-    image: AssetImage("assets/images/media/background.jpg"),
-    fit: BoxFit.cover,
-    ),
-    ),
-    child: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Stack(
-                children: <Widget>[
-                  DefaultTextStyle(style: TextStyle(
-                    fontSize: 30,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 2
-                      ..color = Colors.purple,
-                  ),
+    return Stack(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/media/background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    DefaultTextStyle(
+                      style: TextStyle(
+                        fontSize: 30,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 2
+                          ..color = Colors.purple,
+                      ),
                       child: const Text(
-                    "Congratulations !",
-                    textAlign: TextAlign.center,
-                  ),
-                  ),
-                  const DefaultTextStyle(
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
+                        "Congratulations !",
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    child: Text(
-                    "Congratulations !",
-                    textAlign: TextAlign.center,
-                  ),
-                  )
-                ],
-              ),
-              playAgainButton(context)
-            ]))
+                    const DefaultTextStyle(
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                      ),
+                      child: Text(
+                        "Congratulations !",
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 20),
+                playAgainButton(context),
+              ],
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            confettiController: confettiController,
+            blastDirectionality: BlastDirectionality.explosive,
+            shouldLoop: false,
+            numberOfParticles: 100,
+            gravity: 0.65,
+          ),
+        ),
+      ],
     );
   }
 }

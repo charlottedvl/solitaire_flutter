@@ -58,13 +58,14 @@ class MyTitle extends StatelessWidget {
         ),
         Stack(
           children: <Widget>[
-            DefaultTextStyle(style: TextStyle(
-              fontSize: 30,
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 2
-                ..color = Colors.purple,
-            ),
+            DefaultTextStyle(
+              style: TextStyle(
+                fontSize: 30,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 2
+                  ..color = Colors.purple,
+              ),
               child: const Text(
                 WELCOME_MSG_EN,
                 textAlign: TextAlign.center,

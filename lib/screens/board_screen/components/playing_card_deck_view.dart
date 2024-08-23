@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/deck.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/deck.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class PlayingCardDeckView extends StatefulWidget {
+  // Card to display
   Deck displayDeck;
+  // Number of move played by the player
+  int counter;
 
-  PlayingCardDeckView(this.displayDeck, {super.key});
+  PlayingCardDeckView(
+      {super.key, required this.displayDeck, required this.counter});
 
   @override
   PlayingCardDeckViewState createState() => PlayingCardDeckViewState();
@@ -25,7 +29,12 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
   @override
   Widget build(BuildContext context) {
     double spacing = 25.0;
-    double height = cardHeight;
+    const double aspectRatio = originalCardWidth / originalCardHeight;
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    final double width = screenWidth * 0.13;
+    final double height = width / aspectRatio * 1.15;
 
     int length = displayDeck.length;
     return SizedBox(
@@ -40,12 +49,18 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                   child: j != displayDeck.cardToShow
                       // If there is more than 1 card to display,
                       // make the other ones not draggable
-                      ? CardView(card: displayDeck.getStack()[length - j])
+                      ? CardView(
+                          card: displayDeck.getStack()[
+                              length - ((displayDeck.cardToShow + 1) - j)])
                       : Draggable<List<PlayingCard>>(
-                          data: [displayDeck.getStack()[length - j]],
+                          data: [
+                            displayDeck.getStack()[
+                                length - ((displayDeck.cardToShow + 1) - j)]
+                          ],
                           dragAnchorStrategy: pointerDragAnchorStrategy,
                           onDragCompleted: () {
-                            displayDeck.getStack().removeAt(length - j);
+                            displayDeck.getStack().removeAt(
+                                length - ((displayDeck.cardToShow + 1) - j));
                             setState(() {
                               if (displayDeck.cardToShow != 1) {
                                 displayDeck.cardToShow--;
@@ -53,7 +68,8 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                             });
                           },
                           feedback: CardView(
-                              card: displayDeck.getStack()[length - j]),
+                              card: displayDeck.getStack()[
+                                  length - ((displayDeck.cardToShow + 1) - j)]),
                           childWhenDragging: displayDeck.cardToShow != 1 ||
                                   length < 2
                               ? Opacity(
@@ -65,7 +81,8 @@ class PlayingCardDeckViewState extends State<PlayingCardDeckView> {
                                   card: displayDeck.getStack()[length - 2],
                                 ),
                           child: CardView(
-                              card: displayDeck.getStack()[length - j]),
+                              card: displayDeck.getStack()[
+                                  length - ((displayDeck.cardToShow + 1) - j)]),
                         )),
             ],
           ],

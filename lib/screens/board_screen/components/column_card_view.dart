@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/colum_card.dart';
-import 'package:solitaire/backend/column_draggable_card.dart';
-import 'package:solitaire/backend/column_hidden_card.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/colum_card.dart';
+import 'package:solitaire/backend/models/column_draggable_card.dart';
+import 'package:solitaire/backend/models/column_hidden_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/screens/board_screen/widgets/draggable_card.dart';
 import 'package:solitaire/shared/constants.dart';
@@ -11,8 +11,10 @@ import 'package:solitaire/shared/widget/empty_stack.dart';
 class ColumnCardView extends StatefulWidget {
   // Card column
   ColumnCard column;
+  // Number of move played by the player
+  int counter;
 
-  ColumnCardView(this.column, {Key? key}) : super(key: key);
+  ColumnCardView({super.key, required this.column, required this.counter});
 
   @override
   ColumnCardViewState createState() => ColumnCardViewState();
@@ -55,10 +57,26 @@ class ColumnCardViewState extends State<ColumnCardView> {
     });
   }
 
+  /// Add card to column
+  void addCardsToColumn(List<PlayingCard> data) {
+    columnDraggable.pushAll(data);
+    setState(() {
+      stackCopy = List.from(columnDraggable.getStack());
+      opacities = List.generate(stackCopy.length, (index) => 1.0);
+      widget.counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    const double aspectRatio = originalCardWidth / originalCardHeight;
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    final double width = screenWidth * 0.13;
+    final double height = width / aspectRatio;
     double spacing = 25.0;
-    double totalHeight = 500;
+    double totalHeight = 550;
     return SizedBox(
         height: totalHeight,
         width: 61.0,
@@ -95,20 +113,16 @@ class ColumnCardViewState extends State<ColumnCardView> {
               return false;
             }, onAccept: (data) {
               if (data is List<PlayingCard>) {
-                columnDraggable.pushAll(data);
-                setState(() {
-                  stackCopy = List.from(columnDraggable.getStack());
-                  opacities = List.generate(stackCopy.length, (index) => 1.0);
-                });
+                addCardsToColumn(data);
               }
             }, builder: (
               BuildContext context,
               List<dynamic> accepted,
               List<dynamic> rejected,
             ) {
-              return const SizedBox(
-                width: cardWidth,
-                height: cardHeight,
+              return SizedBox(
+                width: width,
+                height: height,
               );
             }),
           ),

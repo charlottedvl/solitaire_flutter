@@ -1,5 +1,5 @@
-import 'package:solitaire/backend/playing_card.dart';
-import 'package:solitaire/backend/stack_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
+import 'package:solitaire/backend/models/stack_card.dart';
 
 class ColumnDraggableCard extends StackCard {
   ColumnDraggableCard(List<PlayingCard> stack) {
@@ -15,6 +15,17 @@ class ColumnDraggableCard extends StackCard {
       return true;
     }
     return false;
+  }
+
+  Map<String, dynamic> toJson() => {
+        'cards': stack.map((card) => card.toJson()).toList(),
+      };
+
+  static ColumnDraggableCard fromJson(Map<String, dynamic> json) {
+    var cardsJson = json['cards'] as List;
+    List<PlayingCard> cards =
+        cardsJson.map((cardJson) => PlayingCard.fromJson(cardJson)).toList();
+    return ColumnDraggableCard(cards);
   }
 
   void popAllFromIndex(int index) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire/backend/playing_card.dart';
+import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class CardView extends StatelessWidget {
@@ -16,11 +16,17 @@ class CardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double aspectRatio = originalCardWidth / originalCardHeight;
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    final double width = screenWidth * 0.13;
+    final double height = width / aspectRatio;
     return Opacity(
         opacity: opacity,
         child: SizedBox(
-          width: cardWidth,
-          height: cardHeight,
+          width: width,
+          height: height,
           child: Stack(
             children: [
               if (card?.isVisible ?? false) ...[
