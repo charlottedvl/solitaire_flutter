@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/shared/constants.dart';
-import 'package:solitaire/shared/string_constants.dart';
 
-class MyTitle extends StatelessWidget {
-  final double widthSizedBox;
-  final double heightSizedBox;
+class CustomTitle extends StatelessWidget {
+  double widthSizedBox = 0.1;
+  double heightSizedBox = 0.1;
+  String title;
 
-  MyTitle(
-    this.widthSizedBox,
-    this.heightSizedBox, {
+  CustomTitle(
+    this.title,
+    this.cards, {
     Key? key,
   }) : super(key: key);
 
-  final List<String> cards = [
+  List<String> cards = [
     "Ready",
     "To",
     "Have",
@@ -21,6 +21,13 @@ class MyTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    const double aspectRatio = originalCardWidth / originalCardHeight;
+    double cardWidth = screenWidth * 0.18;
+    double cardHeight = cardWidth / aspectRatio;
+    widthSizedBox = screenWidth * 0.02;
+    heightSizedBox = screenHeight * 0.05;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -28,8 +35,8 @@ class MyTitle extends StatelessWidget {
           for (String card in cards) ...[
             if (card.isNotEmpty) ...[
               Container(
-                width: 60.7, // Adjust the width and height as needed
-                height: 97.1,
+                width: cardWidth,
+                height: cardHeight,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/media/cardView/$card.png"),
@@ -56,32 +63,12 @@ class MyTitle extends StatelessWidget {
         SizedBox(
           height: heightSizedBox,
         ),
-        Stack(
-          children: <Widget>[
-            DefaultTextStyle(
-              style: TextStyle(
-                fontSize: 30,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 2
-                  ..color = Colors.purple,
-              ),
-              child: const Text(
-                WELCOME_MSG_EN,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const DefaultTextStyle(
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-              ),
-              child: Text(
-                WELCOME_MSG_EN,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
+        DefaultTextStyle(
+          style: Theme.of(context).textTheme.titleLarge ?? TextStyle(),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

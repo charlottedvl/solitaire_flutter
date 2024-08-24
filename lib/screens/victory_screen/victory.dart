@@ -1,7 +1,12 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/screens/board_screen/board_view.dart';
+import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/screens/shared/screen_shape/title_button_screen.dart';
+import 'package:solitaire/shared/string_constants.dart';
+import 'package:solitaire/screens/shared/widget/button.dart';
+import 'package:solitaire/screens/shared/widget/custom_title.dart';
 
 class VictoryView extends StatefulWidget {
   const VictoryView({Key? key}) : super(key: key);
@@ -12,6 +17,13 @@ class VictoryView extends StatefulWidget {
 
 class VictoryViewState extends State<VictoryView> {
   late ConfettiController confettiController;
+
+  List<String> cards = [
+    "you",
+    "are",
+    "the",
+    "boss",
+  ];
 
   @override
   void initState() {
@@ -27,77 +39,37 @@ class VictoryViewState extends State<VictoryView> {
     super.dispose();
   }
 
-  Widget playAgainButton(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => BoardView(
-                    board: Board(false, null, null, null, null, null))));
-      },
-      child: const Text(
-        "Play again",
-        style: TextStyle(
-          color: Colors.white,
-        ),
-        textScaleFactor: 1.5,
-      ),
+  void playAgain() {
+    context.read<BoardProvider>().clearSavedGame();
+    Navigator.pushNamed(
+      context,
+      '/board',
+      arguments: Board(true, null, null, null, null, null, null),
     );
+  }
+
+  List<Widget> getWidgets() {
+    return [
+      CustomTitle(CONGRATS_EN, cards),
+      Column(
+        children: [
+          CustomButton(onPressed: playAgain, title: "Play Again"),
+          SizedBox(
+            height: 10,
+          ),
+          CustomButton(
+              onPressed: confettiController.play, title: "More confetti!"),
+        ],
+      )
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgets = getWidgets();
     return Stack(
       children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/media/background.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    DefaultTextStyle(
-                      style: TextStyle(
-                        fontSize: 30,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 2
-                          ..color = Colors.purple,
-                      ),
-                      child: const Text(
-                        "Congratulations !",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const DefaultTextStyle(
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                      ),
-                      child: Text(
-                        "Congratulations !",
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 20),
-                playAgainButton(context),
-              ],
-            ),
-          ),
-        ),
+        TitleButtonScreen(widgets: widgets),
         Align(
           alignment: Alignment.topCenter,
           child: ConfettiWidget(

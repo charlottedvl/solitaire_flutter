@@ -9,9 +9,14 @@ class PlayingCardDeckView extends StatefulWidget {
   Deck displayDeck;
   // Number of move played by the player
   int counter;
+  // Function to save the last move
+  Function saveMove;
 
   PlayingCardDeckView(
-      {super.key, required this.displayDeck, required this.counter});
+      {super.key,
+      required this.displayDeck,
+      required this.counter,
+      required this.saveMove});
 
   @override
   PlayingCardDeckViewState createState() => PlayingCardDeckViewState();

@@ -1,5 +1,7 @@
 // File that contains all int and double constants of the app
 
+import 'package:flutter/material.dart';
+
 /// Constants related to the spacing of cards
 const double leftSpacing = 0;
 
@@ -12,3 +14,8 @@ const double emptyStackBorderWidth = 3.0;
 /// Constants related to opacity
 const opacityEmptyStack = 0.5;
 const opacityHiddenCard = 0.0;
+
+/// Color constants
+const green = Color(0xff236429);
+const lightGreen = Color(0xffBECCBF);
+const grey = Color(0xffA3A3A3);

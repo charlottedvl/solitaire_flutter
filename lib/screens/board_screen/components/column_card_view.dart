@@ -6,7 +6,7 @@ import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/screens/board_screen/widgets/draggable_card.dart';
 import 'package:solitaire/shared/constants.dart';
-import 'package:solitaire/shared/widget/empty_stack.dart';
+import 'package:solitaire/screens/shared/widget/empty_stack.dart';
 
 class ColumnCardView extends StatefulWidget {
   // Card column
@@ -14,7 +14,13 @@ class ColumnCardView extends StatefulWidget {
   // Number of move played by the player
   int counter;
 
-  ColumnCardView({super.key, required this.column, required this.counter});
+  Function saveMove;
+
+  ColumnCardView(
+      {super.key,
+      required this.column,
+      required this.counter,
+      required this.saveMove});
 
   @override
   ColumnCardViewState createState() => ColumnCardViewState();
@@ -112,6 +118,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
               }
               return false;
             }, onAccept: (data) {
+              widget.saveMove();
               if (data is List<PlayingCard>) {
                 addCardsToColumn(data);
               }
