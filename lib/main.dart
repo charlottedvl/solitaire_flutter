@@ -3,8 +3,6 @@ import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/board_screen/board_screen.dart';
 import 'package:solitaire/screens/home_screen/home.dart';
-import 'package:solitaire/screens/home_screen/widget/nav_bar.dart';
-import 'package:solitaire/screens/profile_screen/profile.dart';
 import 'package:solitaire/screens/settings_screen/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/screens/victory_screen/victory.dart';

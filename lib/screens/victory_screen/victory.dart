@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
-import 'package:solitaire/screens/board_screen/board_screen.dart';
 
 class VictoryView extends StatefulWidget {
   const VictoryView({Key? key}) : super(key: key);
