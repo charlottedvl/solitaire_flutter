@@ -3,7 +3,7 @@ import 'package:solitaire/backend/models/colored_stack.dart';
 import 'package:solitaire/backend/models/playing_card.dart';
 import 'package:solitaire/screens/board_screen/widgets/card_view.dart';
 import 'package:solitaire/shared/constants.dart';
-import 'package:solitaire/shared/widget/empty_stack.dart';
+import 'package:solitaire/screens/shared/widget/empty_stack.dart';
 
 class ColoredStackView extends StatefulWidget {
   // Cards of a color

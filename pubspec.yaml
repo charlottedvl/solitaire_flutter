@@ -63,67 +63,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/media/cardView/backgroundCard.png
-    - assets/images/media/cardView/Ready.png
-    - assets/images/media/cardView/To.png
-    - assets/images/media/cardView/Have.png
-    - assets/images/media/cardView/Fun.png
+    - assets/images/media/cardView/
     - assets/images/media/background.jpg
-    - assets/images/media/cardView/1Diamonds.png
-    - assets/images/media/cardView/2Diamonds.png
-    - assets/images/media/cardView/3Diamonds.png
-    - assets/images/media/cardView/4Diamonds.png
-    - assets/images/media/cardView/5Diamonds.png
-    - assets/images/media/cardView/6Diamonds.png
-    - assets/images/media/cardView/7Diamonds.png
-    - assets/images/media/cardView/8Diamonds.png
-    - assets/images/media/cardView/9Diamonds.png
-    - assets/images/media/cardView/10Diamonds.png
-    - assets/images/media/cardView/11Diamonds.png
-    - assets/images/media/cardView/12Diamonds.png
-    - assets/images/media/cardView/13Diamonds.png
-    - assets/images/media/cardView/1Heart.png
-    - assets/images/media/cardView/2Heart.png
-    - assets/images/media/cardView/3Heart.png
-    - assets/images/media/cardView/4Heart.png
-    - assets/images/media/cardView/5Heart.png
-    - assets/images/media/cardView/6Heart.png
-    - assets/images/media/cardView/7Heart.png
-    - assets/images/media/cardView/8Heart.png
-    - assets/images/media/cardView/9Heart.png
-    - assets/images/media/cardView/10Heart.png
-    - assets/images/media/cardView/11Heart.png
-    - assets/images/media/cardView/12Heart.png
-    - assets/images/media/cardView/13Heart.png
-    - assets/images/media/cardView/1Club.png
-    - assets/images/media/cardView/2Club.png
-    - assets/images/media/cardView/3Club.png
-    - assets/images/media/cardView/4Club.png
-    - assets/images/media/cardView/5Club.png
-    - assets/images/media/cardView/6Club.png
-    - assets/images/media/cardView/7Club.png
-    - assets/images/media/cardView/8Club.png
-    - assets/images/media/cardView/9Club.png
-    - assets/images/media/cardView/10Club.png
-    - assets/images/media/cardView/11Club.png
-    - assets/images/media/cardView/12Club.png
-    - assets/images/media/cardView/13Club.png
-    - assets/images/media/cardView/1Spade.png
-    - assets/images/media/cardView/2Spade.png
-    - assets/images/media/cardView/3Spade.png
-    - assets/images/media/cardView/4Spade.png
-    - assets/images/media/cardView/5Spade.png
-    - assets/images/media/cardView/6Spade.png
-    - assets/images/media/cardView/7Spade.png
-    - assets/images/media/cardView/8Spade.png
-    - assets/images/media/cardView/9Spade.png
-    - assets/images/media/cardView/10Spade.png
-    - assets/images/media/cardView/11Spade.png
-    - assets/images/media/cardView/12Spade.png
-    - assets/images/media/cardView/13Spade.png
-    - assets/images/media/cardView/UnderStack.png
-    - assets/images/media/cardView/refresh.png
-
 
 
 

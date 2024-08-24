@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/screens/board_screen/board_view.dart';
+import 'package:solitaire/screens/board_screen/components/board_view.dart';
 import 'package:solitaire/screens/board_screen/components/tool_bar.dart';
 
 class BoardScreen extends StatefulWidget {
