@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/screens/board_screen/widgets/tool_bar_button.dart';
 import 'package:solitaire/shared/constants.dart';
-import 'package:solitaire/shared/navigation.dart';
 
 class ToolBar extends StatelessWidget {
   ToolBar({super.key, required this.cancelMove});
@@ -15,9 +14,7 @@ class ToolBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ToolBarButton(
-            action: () => {
-              Navigator.pushReplacementNamed(context, '/home')
-            },
+            action: () => {Navigator.pushReplacementNamed(context, '/home')},
             label: "Home",
             icon: const Icon(Icons.home),
           ),
@@ -37,23 +34,13 @@ class ToolBar extends StatelessWidget {
             icon: const Icon(Icons.reply),
           ),
           ToolBarButton(
-            action: () => {
-              Navigator.pushReplacementNamed(context, '/settings')
-            },
+            action: () =>
+                {Navigator.pushReplacementNamed(context, '/settings')},
             label: "Settings",
             icon: const Icon(Icons.settings),
           ),
         ],
       ),
     );
-
-    /*
-      ElevatedButton(
-        onPressed: () {
-          cancelMove();
-        },
-        child: const Text("Undo"));
-
-       */
   }
 }

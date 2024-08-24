@@ -21,25 +21,6 @@ class GameButtonState extends State<GameButton> {
   void initState() {
     super.initState();
   }
-/*
-  Future<void> startNewGame() async {
-    Board newBoard = Board(false, null, null, null, null, null, null);
-    Navigator.pushNamed(
-      context,
-      '/board',
-      arguments: newBoard,
-    );
-  }
-
-  Future<void> continueGame() async {
-    Navigator.pushNamed(
-      context,
-      '/board',
-      arguments: board,
-    );
-  }
-
- */
 
   void accessToGame() {
     Board? boardToPlay;

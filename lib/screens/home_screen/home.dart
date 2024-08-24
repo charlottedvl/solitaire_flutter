@@ -19,7 +19,6 @@ class Home extends StatelessWidget {
   Board board = Board(false, null, null, null, null, null, null);
   int selectedIndex = 0;
 
-
   void calculateSize(double screenWidth, double screenHeight) {
     padding = screenWidth * 0.1;
     widthSizedBox = screenWidth * 0.02;
@@ -34,44 +33,43 @@ class Home extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     calculateSize(screenWidth, screenHeight);
 
-    return
-      Scaffold(
-        backgroundColor: lightGreen,
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/media/background.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(padding),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MyTitle(widthSizedBox, heightSizedBox),
-                Column(
-                  children: [
-                    GameButton(
-                      title: "Start new game",
-                      isNewGameButton: true,
-                    ),
-                    SizedBox(
-                      height: heightSpacing,
-                    ),
-                    GameButton(
-                      title: "Continue game",
-                      isNewGameButton: false,
-                    ),
-                  ],
-                )
-              ],
-            ),
+    return Scaffold(
+      backgroundColor: lightGreen,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/media/background.jpg"),
+            fit: BoxFit.cover,
           ),
         ),
-        bottomNavigationBar: NavBar(
-          selectedIndex: selectedIndex,
+        child: Padding(
+          padding: EdgeInsets.all(padding),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              MyTitle(widthSizedBox, heightSizedBox),
+              Column(
+                children: [
+                  GameButton(
+                    title: "Start new game",
+                    isNewGameButton: true,
+                  ),
+                  SizedBox(
+                    height: heightSpacing,
+                  ),
+                  GameButton(
+                    title: "Continue game",
+                    isNewGameButton: false,
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
-      );
+      ),
+      bottomNavigationBar: NavBar(
+        selectedIndex: selectedIndex,
+      ),
+    );
   }
 }

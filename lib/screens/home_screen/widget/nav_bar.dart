@@ -4,16 +4,13 @@ import 'package:solitaire/shared/constants.dart';
 class NavBar extends StatefulWidget {
   int selectedIndex;
 
-  NavBar(
-      {Key? key, required this.selectedIndex})
-      : super(key: key);
+  NavBar({Key? key, required this.selectedIndex}) : super(key: key);
 
   @override
   State<NavBar> createState() => NavBarState();
 }
 
 class NavBarState extends State<NavBar> {
-
   void onItemTapped(int index) {
     setState(() {
       widget.selectedIndex = index;
