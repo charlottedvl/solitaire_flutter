@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/screens/board_screen/widgets/tool_bar_button.dart';
 import 'package:solitaire/shared/constants.dart';
+import 'package:solitaire/shared/navigation.dart';
 
 class ToolBar extends StatelessWidget {
-  ToolBar({super.key, required this.cancelMove, required this.saveGame});
+  ToolBar({super.key, required this.cancelMove});
   Function cancelMove;
-  Function saveGame;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,9 @@ class ToolBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ToolBarButton(
-            action: () => {},
+            action: () => {
+              Navigator.pushReplacementNamed(context, '/home')
+            },
             label: "Home",
             icon: const Icon(Icons.home),
           ),
@@ -35,7 +37,9 @@ class ToolBar extends StatelessWidget {
             icon: const Icon(Icons.reply),
           ),
           ToolBarButton(
-            action: () => {},
+            action: () => {
+              Navigator.pushReplacementNamed(context, '/settings')
+            },
             label: "Settings",
             icon: const Icon(Icons.settings),
           ),

@@ -21,11 +21,44 @@ class GameButtonState extends State<GameButton> {
   void initState() {
     super.initState();
   }
-
-  Future<void> startNewGame(context) async {
+/*
+  Future<void> startNewGame() async {
     Board newBoard = Board(false, null, null, null, null, null, null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BoardScreen(board: newBoard)));
+    Navigator.pushNamed(
+      context,
+      '/board',
+      arguments: newBoard,
+    );
+  }
+
+  Future<void> continueGame() async {
+    Navigator.pushNamed(
+      context,
+      '/board',
+      arguments: board,
+    );
+  }
+
+ */
+
+  void accessToGame() {
+    Board? boardToPlay;
+    if (widget.isNewGameButton) {
+      context.read<BoardProvider>().clearSavedGame();
+      boardToPlay = Board(false, null, null, null, null, null, null);
+    } else {
+      if (board != null) {
+        boardToPlay = board;
+      } else {
+        // TODO : pop up
+        print("No previous game saved");
+      }
+    }
+    Navigator.pushNamed(
+      context,
+      '/board',
+      arguments: boardToPlay,
+    );
   }
 
   @override
@@ -34,26 +67,7 @@ class GameButtonState extends State<GameButton> {
     return Material(
       color: Colors.transparent,
       child: ElevatedButton(
-        onPressed: () {
-          if (widget.isNewGameButton) {
-            context.read<BoardProvider>().clearSavedGame();
-            startNewGame(context);
-          } else {
-            if (board != null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BoardScreen(
-                    board: board ??
-                        Board(false, null, null, null, null, null, null),
-                  ),
-                ),
-              );
-            } else {
-              print("No previous game saved");
-            }
-          }
-        },
+        onPressed: accessToGame,
         style: Theme.of(context).elevatedButtonTheme.style,
         child: Text(
           widget.title,
