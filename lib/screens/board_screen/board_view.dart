@@ -96,8 +96,8 @@ class BoardViewState extends State<BoardView> {
                       DeckView(
                         nextCardsDeck: board.nextCardsDeck,
                         displayDeck: board.displayDeck,
-                        onPressedCallback: saveMove,
                         counter: counter,
+                        saveMove: saveMove
                       ),
                       PlayingCardDeckView(
                         displayDeck: board.displayDeck,
