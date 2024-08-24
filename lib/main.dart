@@ -37,6 +37,13 @@ class MyAppState extends State<MyApp> {
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
+            textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                    foregroundColor: green,
+                    textStyle: const TextStyle(
+                      fontFamily: "Moderustic",
+                      fontSize: 12,
+                    ))),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: green,
@@ -44,7 +51,7 @@ class MyAppState extends State<MyApp> {
                     textStyle: const TextStyle(
                       fontFamily: 'Moderustic',
                       fontSize: 15,
-                      color: lightGrey,
+                      color: lightGreen,
                     ))),
             textTheme: const TextTheme(
               titleLarge: TextStyle(
@@ -52,7 +59,7 @@ class MyAppState extends State<MyApp> {
             ),
           ),
           home: Scaffold(
-            backgroundColor: lightGrey,
+            backgroundColor: lightGreen,
             body: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(

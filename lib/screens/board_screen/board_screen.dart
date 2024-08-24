@@ -36,6 +36,8 @@ class BoardScreenState extends State<BoardScreen> {
     }
   }
 
+  void saveGame(Board board, context) {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +50,15 @@ class BoardScreenState extends State<BoardScreen> {
         ),
         child: Column(
           children: [
-            BoardView(key: boardKey, board: board), // Pass the key here
-            ToolBar(
-              cancelMove: cancelMove,
+            Expanded(
+              child: BoardView(key: boardKey, board: board),
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: ToolBar(
+        cancelMove: cancelMove,
+        saveGame: saveGame,
       ),
     );
   }

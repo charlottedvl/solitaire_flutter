@@ -65,78 +65,69 @@ class BoardViewState extends State<BoardView> {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuild");
-    if (board.columns[0].columnDraggableCard.getStack().length > 0) {
-      print(board.columns[0].columnDraggableCard.getStack()[0].value ?? "no");
-    }
     double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
     double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.007;
 
     final double screenWidth = MediaQuery.of(context).size.width;
     final double width = screenWidth * 0.13;
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.90,
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: paddingVertical,
-          left: paddingHorizontal,
-          right: paddingHorizontal,
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DeckView(
+    return Padding(
+      padding: EdgeInsets.only(
+        top: paddingVertical,
+        left: paddingHorizontal,
+        right: paddingHorizontal,
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DeckView(
                         nextCardsDeck: board.nextCardsDeck,
                         displayDeck: board.displayDeck,
                         counter: counter,
-                        saveMove: saveMove
-                      ),
-                      PlayingCardDeckView(
-                        displayDeck: board.displayDeck,
-                        counter: counter,
-                        saveMove: saveMove,
-                      ),
+                        saveMove: saveMove),
+                    PlayingCardDeckView(
+                      displayDeck: board.displayDeck,
+                      counter: counter,
+                      saveMove: saveMove,
+                    ),
+                    SizedBox(
+                      width: paddingHorizontal,
+                    ),
+                    ColoredStackView(
+                      stacks: board.stacks,
+                      saveMove: saveMove,
+                      testIfFinish: testIfFinish,
+                      counter: counter,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (ColumnCard column in board.columns) ...[
                       SizedBox(
-                        width: paddingHorizontal,
-                      ),
-                      ColoredStackView(
-                        stacks: board.stacks,
-                        saveMove: saveMove,
-                        testIfFinish: testIfFinish,
-                        counter: counter,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (ColumnCard column in board.columns) ...[
-                        SizedBox(
-                          width: width,
-                          child: ColumnCardView(
-                            saveMove: saveMove,
-                            column: column,
-                            counter: counter,
-                          ),
-                        )
-                      ]
-                    ],
-                  ),
-                ],
-              ),
+                        width: width,
+                        child: ColumnCardView(
+                          saveMove: saveMove,
+                          column: column,
+                          counter: counter,
+                        ),
+                      )
+                    ]
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

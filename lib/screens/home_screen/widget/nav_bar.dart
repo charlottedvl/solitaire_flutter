@@ -39,7 +39,7 @@ class NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: lightGrey,
+      backgroundColor: lightGreen,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
