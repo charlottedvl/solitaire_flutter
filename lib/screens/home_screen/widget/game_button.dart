@@ -4,18 +4,17 @@ import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/board_screen/board_screen.dart';
 
-class NavigationButton extends StatefulWidget {
-  NavigationButton(
-      {super.key, required this.title, required this.isNewGameButton});
+class GameButton extends StatefulWidget {
+  GameButton({super.key, required this.title, required this.isNewGameButton});
 
   final String title;
   bool isNewGameButton = true;
 
   @override
-  State<NavigationButton> createState() => NavigationButtonState();
+  State<GameButton> createState() => GameButtonState();
 }
 
-class NavigationButtonState extends State<NavigationButton> {
+class GameButtonState extends State<GameButton> {
   Board? board;
 
   @override

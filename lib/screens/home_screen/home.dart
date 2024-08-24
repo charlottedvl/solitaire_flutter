@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
-import 'package:solitaire/screens/home_screen/widget/navigation_button.dart';
+import 'package:solitaire/screens/home_screen/widget/game_button.dart';
 import 'package:solitaire/screens/home_screen/widget/title.dart';
 
 class Home extends StatelessWidget {
@@ -38,14 +38,14 @@ class Home extends StatelessWidget {
           MyTitle(widthSizedBox, heightSizedBox),
           Column(
             children: [
-              NavigationButton(
+              GameButton(
                 title: "Start new game",
                 isNewGameButton: true,
               ),
               SizedBox(
                 height: heightSpacing,
               ),
-              NavigationButton(
+              GameButton(
                 title: "Continue game",
                 isNewGameButton: false,
               ),
