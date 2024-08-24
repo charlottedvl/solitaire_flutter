@@ -1,6 +1,8 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
+import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/board_screen/board_screen.dart';
 
 class VictoryView extends StatefulWidget {
@@ -30,11 +32,12 @@ class VictoryViewState extends State<VictoryView> {
   Widget playAgainButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => BoardScreen(
-                    board: Board(false, null, null, null, null, null, null))));
+        context.read<BoardProvider>().clearSavedGame();
+        Navigator.pushNamed(
+          context,
+          '/board',
+          arguments: Board(true, null, null, null, null, null, null),
+        );
       },
       child: const Text(
         "Play again",

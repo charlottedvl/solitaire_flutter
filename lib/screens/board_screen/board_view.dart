@@ -58,8 +58,7 @@ class BoardViewState extends State<BoardView> {
       setState(() {
         isGameFinished = true;
       });
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const VictoryView()));
+      Navigator.pushReplacementNamed(context, '/victory');
     }
   }
 

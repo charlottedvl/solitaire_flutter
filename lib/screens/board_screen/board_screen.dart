@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/screens/board_screen/board_view.dart';
 import 'package:solitaire/screens/board_screen/components/tool_bar.dart';
+import 'package:solitaire/shared/navigation.dart';
 
 class BoardScreen extends StatefulWidget {
   Board board;
@@ -32,11 +33,10 @@ class BoardScreenState extends State<BoardScreen> {
       print(
           board.columns[0].columnDraggableCard.getStack()[0]?.value ?? "jkdf");
     } else {
+      //TODO: pop up
       print("no previous move");
     }
   }
-
-  void saveGame(Board board, context) {}
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,6 @@ class BoardScreenState extends State<BoardScreen> {
       ),
       bottomNavigationBar: ToolBar(
         cancelMove: cancelMove,
-        saveGame: saveGame,
       ),
     );
   }

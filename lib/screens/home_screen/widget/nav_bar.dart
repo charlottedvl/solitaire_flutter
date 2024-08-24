@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class NavBar extends StatefulWidget {
-  final int selectedIndex;
-  final Function(int) onTabTapped;
+  int selectedIndex;
 
-  const NavBar(
-      {Key? key, required this.selectedIndex, required this.onTabTapped})
+  NavBar(
+      {Key? key, required this.selectedIndex})
       : super(key: key);
 
   @override
@@ -14,25 +13,20 @@ class NavBar extends StatefulWidget {
 }
 
 class NavBarState extends State<NavBar> {
-  int selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Profile',
-      style: optionStyle,
-    )
-  ];
 
   void onItemTapped(int index) {
     setState(() {
-      selectedIndex = index;
+      widget.selectedIndex = index;
     });
-    widget.onTabTapped(index); // Notify the parent about the tab change
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, '/home');
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, '/settings');
+        break;
+    }
   }
 
   @override
@@ -50,7 +44,7 @@ class NavBarState extends State<NavBar> {
           label: 'Settings',
         ),
       ],
-      currentIndex: selectedIndex,
+      currentIndex: widget.selectedIndex,
       selectedItemColor: green,
       unselectedItemColor: Colors.white70,
       onTap: onItemTapped,
