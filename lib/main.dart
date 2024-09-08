@@ -53,7 +53,7 @@ class MyAppState extends State<MyApp> {
             textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                     foregroundColor: green,
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 1),
+                    padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
                     textStyle: const TextStyle(
                       fontFamily: "Moderustic",
                       fontSize: 12,
