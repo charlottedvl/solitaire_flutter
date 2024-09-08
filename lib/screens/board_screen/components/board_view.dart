@@ -40,8 +40,11 @@ class BoardViewState extends State<BoardView> {
 
   @override
   void didChangeDependencies() {
+    setState(() {
+      boardProvider = context.read<BoardProvider>();
+
+    });
     super.didChangeDependencies();
-    boardProvider = context.read<BoardProvider>();
   }
 
   void saveMove() {

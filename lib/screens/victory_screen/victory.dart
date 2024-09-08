@@ -44,7 +44,7 @@ class VictoryViewState extends State<VictoryView> {
     Navigator.pushNamed(
       context,
       '/board',
-      arguments: Board(true, null, null, null, null, null, null),
+      arguments: Board(false, null, null, null, null, null, null),
     );
   }
 
@@ -54,7 +54,7 @@ class VictoryViewState extends State<VictoryView> {
       Column(
         children: [
           CustomButton(onPressed: playAgain, title: "Play Again"),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           CustomButton(
