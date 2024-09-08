@@ -42,7 +42,6 @@ class BoardViewState extends State<BoardView> {
   void didChangeDependencies() {
     setState(() {
       boardProvider = context.read<BoardProvider>();
-
     });
     super.didChangeDependencies();
   }
