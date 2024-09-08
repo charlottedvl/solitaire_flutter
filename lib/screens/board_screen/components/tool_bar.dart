@@ -11,7 +11,7 @@ class ToolBar extends StatelessWidget {
     return BottomAppBar(
       color: lightGreen,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ToolBarButton(
             action: () => {Navigator.pushReplacementNamed(context, '/home')},
