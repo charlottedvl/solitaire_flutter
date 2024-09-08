@@ -40,7 +40,7 @@ class MyAppState extends State<MyApp> {
               case '/home':
                 return MaterialPageRoute(builder: (context) => Home());
               case '/settings':
-                return MaterialPageRoute(builder: (context) => Settings());
+                return MaterialPageRoute(builder: (context) => VictoryView());
               case '/victory':
                 return MaterialPageRoute(builder: (context) => VictoryView());
               default:
@@ -53,22 +53,28 @@ class MyAppState extends State<MyApp> {
             textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                     foregroundColor: green,
+                    padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 1),
                     textStyle: const TextStyle(
                       fontFamily: "Moderustic",
                       fontSize: 12,
+                      color: Colors.white
                     ))),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: green,
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                    textStyle: const TextStyle(
-                      fontFamily: 'Moderustic',
-                      fontSize: 15,
-                      color: lightGreen,
-                    ))),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                    )),
             textTheme: const TextTheme(
               titleLarge: TextStyle(
-                  fontSize: 35, color: Colors.white, fontFamily: 'Moderustic'),
+                  fontSize: 35,
+                  color: Colors.white,
+                  fontFamily: 'Moderustic'
+              ),
+              bodyLarge: TextStyle(
+                  fontFamily: 'Moderustic',
+                  fontSize: 20,
+                  color: lightGreen,
+            )
             ),
           ),
           home: Home(),

@@ -15,7 +15,7 @@ class ToolBarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      style: Theme.of(context).textButtonTheme.style,
+          style: Theme.of(context).textButtonTheme.style,
       onPressed: () {
         action();
       },
