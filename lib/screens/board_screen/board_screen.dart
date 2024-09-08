@@ -37,6 +37,13 @@ class BoardScreenState extends State<BoardScreen> {
     }
   }
 
+  void playAgain() {
+    setState(() {
+      board = Board(false, null, null, null, null, null, null);
+      boardKey = UniqueKey();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +64,7 @@ class BoardScreenState extends State<BoardScreen> {
       ),
       bottomNavigationBar: ToolBar(
         cancelMove: cancelMove,
+        playAgain: playAgain,
       ),
     );
   }
