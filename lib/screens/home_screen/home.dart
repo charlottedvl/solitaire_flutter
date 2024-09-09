@@ -4,6 +4,7 @@ import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/boardProvider.dart';
 import 'package:solitaire/screens/home_screen/widget/game_button.dart';
 import 'package:solitaire/screens/shared/screen_shape/title_button_screen.dart';
+import 'package:solitaire/shared/constants.dart';
 import 'package:solitaire/shared/string_constants.dart';
 import 'package:solitaire/screens/shared/widget/custom_title.dart';
 
