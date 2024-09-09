@@ -25,14 +25,18 @@ class Board {
 
   Map<String, dynamic>? previousBoard;
 
+  int moves = 0;
+
   Board(
-      bool isLoaded,
-      List<ColorCard>? colors,
-      Deck? nextCardsDeck,
-      Deck? displayDeck,
-      List<ColoredStack>? stacks,
-      List<ColumnCard>? columns,
-      this.previousBoard) {
+    bool isLoaded,
+    List<ColorCard>? colors,
+    Deck? nextCardsDeck,
+    Deck? displayDeck,
+    List<ColoredStack>? stacks,
+    List<ColumnCard>? columns,
+    this.previousBoard,
+    int? moves,
+  ) {
     if (colors != null) {
       this.colors = colors;
     } else {
@@ -71,6 +75,10 @@ class Board {
           7,
           (index) => ColumnCard(ColumnDraggableCard(<PlayingCard>[]),
               ColumnHiddenCard(<PlayingCard>[])));
+    }
+
+    if (moves != null) {
+      this.moves = moves;
     }
 
     // If the game is not loaded, then initialize the
@@ -138,6 +146,7 @@ class Board {
       'stacks': stacks.map((stack) => stack.toJson()).toList(),
       'columns': columns.map((column) => column.toJson()).toList(),
       'previousBoard': previousBoard,
+      'moves': moves,
     };
     return json;
   }
@@ -155,8 +164,9 @@ class Board {
         .map((columnJson) => ColumnCard.fromJson(columnJson))
         .toList();
     Map<String, dynamic>? previousBoard = json['previousBoard'];
+    int? moves = json['moves'];
     return Board(true, colors, nextCardsDeck, displayDeck, stacks, columns,
-        previousBoard);
+        previousBoard, moves);
   }
 
   bool testIfFinish() {

@@ -50,6 +50,14 @@ class MyAppState extends State<MyApp> {
             }
           },
           theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.transparent,
+              titleTextStyle: TextStyle(
+                  color: lightGreen,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Moderustic"),
+            ),
             textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                     foregroundColor: green,

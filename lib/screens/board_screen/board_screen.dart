@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/models/board.dart';
+import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:solitaire/screens/board_screen/components/board_view.dart';
+import 'package:solitaire/screens/board_screen/components/info_bar.dart';
 import 'package:solitaire/screens/board_screen/components/tool_bar.dart';
 
 class BoardScreen extends StatefulWidget {
@@ -13,6 +16,7 @@ class BoardScreen extends StatefulWidget {
 
 class BoardScreenState extends State<BoardScreen> {
   late Board board;
+  int counterMoves = 0;
   Key boardKey = UniqueKey();
 
   @override
@@ -22,6 +26,7 @@ class BoardScreenState extends State<BoardScreen> {
   }
 
   void cancelMove() {
+    context.read<BoardProvider>().increaseCounterMoves();
     Map<String, dynamic>? previousBoard = board.previousBoard;
     if (previousBoard != null) {
       Board boardBeforeMove = Board.fromJson(previousBoard);
@@ -38,8 +43,9 @@ class BoardScreenState extends State<BoardScreen> {
   }
 
   void playAgain() {
+    context.read<BoardProvider>().reinitializeCounterMoves();
     setState(() {
-      board = Board(false, null, null, null, null, null, null);
+      board = Board(false, null, null, null, null, null, null, null);
       boardKey = UniqueKey();
     });
   }
@@ -47,20 +53,26 @@ class BoardScreenState extends State<BoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/media/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: BoardView(key: boardKey, board: board),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/media/background.jpg"),
+                fit: BoxFit.cover,
+              ),
             ),
-          ],
-        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const InfoBar(),
+                Expanded(
+                  child: BoardView(key: boardKey, board: board),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: ToolBar(
         cancelMove: cancelMove,

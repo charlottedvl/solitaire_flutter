@@ -41,10 +41,11 @@ class VictoryViewState extends State<VictoryView> {
 
   void playAgain() {
     context.read<BoardProvider>().clearSavedGame();
+    context.read<BoardProvider>().reinitializeCounterMoves();
     Navigator.pushNamed(
       context,
       '/board',
-      arguments: Board(false, null, null, null, null, null, null),
+      arguments: Board(false, null, null, null, null, null, null, null),
     );
   }
 

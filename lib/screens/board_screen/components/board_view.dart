@@ -18,7 +18,6 @@ class BoardView extends StatefulWidget {
 
 class BoardViewState extends State<BoardView> {
   // Number of move played by the player
-  int counter = 0;
   bool isGameFinished = false;
   late BoardProvider boardProvider;
   late Board board;
@@ -47,8 +46,8 @@ class BoardViewState extends State<BoardView> {
   }
 
   void saveMove() {
+    context.read<BoardProvider>().increaseCounterMoves();
     setState(() {
-      counter++;
       Map<String, dynamic> boardMap = board.toJson();
       board.previousBoard = boardMap;
     });
@@ -65,20 +64,18 @@ class BoardViewState extends State<BoardView> {
 
   @override
   Widget build(BuildContext context) {
-    double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
+    double paddingVertical = (MediaQuery.of(context).size.height) * 0.01;
     double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.007;
 
     final double screenWidth = MediaQuery.of(context).size.width;
     final double width = screenWidth * 0.13;
-
     return Padding(
-      padding: EdgeInsets.only(
-        top: paddingVertical,
-        left: paddingHorizontal,
-        right: paddingHorizontal,
-      ),
-      child: Column(
-        children: [
+        padding: EdgeInsets.only(
+          top: paddingVertical,
+          left: paddingHorizontal,
+          right: paddingHorizontal,
+        ),
+        child: Column(children: [
           Expanded(
             child: Column(
               children: [
@@ -89,11 +86,11 @@ class BoardViewState extends State<BoardView> {
                     DeckView(
                         nextCardsDeck: board.nextCardsDeck,
                         displayDeck: board.displayDeck,
-                        counter: counter,
+                        counter: board.moves,
                         saveMove: saveMove),
                     PlayingCardDeckView(
                       displayDeck: board.displayDeck,
-                      counter: counter,
+                      counter: board.moves,
                       saveMove: saveMove,
                     ),
                     SizedBox(
@@ -103,7 +100,7 @@ class BoardViewState extends State<BoardView> {
                       stacks: board.stacks,
                       saveMove: saveMove,
                       testIfFinish: testIfFinish,
-                      counter: counter,
+                      counter: board.moves,
                     ),
                   ],
                 ),
@@ -118,7 +115,7 @@ class BoardViewState extends State<BoardView> {
                         child: ColumnCardView(
                           saveMove: saveMove,
                           column: column,
-                          counter: counter,
+                          counter: board.moves,
                         ),
                       )
                     ]
@@ -127,8 +124,6 @@ class BoardViewState extends State<BoardView> {
               ],
             ),
           ),
-        ],
-      ),
-    );
+        ]));
   }
 }
