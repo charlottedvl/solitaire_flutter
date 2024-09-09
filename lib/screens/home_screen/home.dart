@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
     super.key,
   });
 
-  Board board = Board(false, null, null, null, null, null, null);
+  Board board = Board(false, null, null, null, null, null, null, null);
   int selectedIndex = 0;
   List<String> cards = [
     "Ready",

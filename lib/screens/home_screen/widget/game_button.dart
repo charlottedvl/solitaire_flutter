@@ -26,7 +26,8 @@ class GameButtonState extends State<GameButton> {
     Board? boardToPlay;
     if (widget.isNewGameButton) {
       context.read<BoardProvider>().clearSavedGame();
-      boardToPlay = Board(false, null, null, null, null, null, null);
+      context.read<BoardProvider>().reinitializeCounterMoves();
+      boardToPlay = Board(false, null, null, null, null, null, null, null);
     } else {
       if (board != null) {
         boardToPlay = board;
