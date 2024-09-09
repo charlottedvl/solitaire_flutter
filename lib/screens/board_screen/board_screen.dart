@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:solitaire/screens/board_screen/components/board_view.dart';
 import 'package:solitaire/screens/board_screen/components/info_bar.dart';
 import 'package:solitaire/screens/board_screen/components/tool_bar.dart';
+import 'package:solitaire/shared/constants.dart';
 
 class BoardScreen extends StatefulWidget {
   Board board;
@@ -38,6 +39,7 @@ class BoardScreenState extends State<BoardScreen> {
           board.columns[0].columnDraggableCard.getStack()[0]?.value ?? "jkdf");
     } else {
       //TODO: pop up
+      showSnackBar();
       print("no previous move");
     }
   }
@@ -48,6 +50,19 @@ class BoardScreenState extends State<BoardScreen> {
       board = Board(false, null, null, null, null, null, null, null);
       boardKey = UniqueKey();
     });
+  }
+
+  void showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Center(
+        child: Text(
+          "No previous moves",
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ),
+      backgroundColor: green,
+      duration: const Duration(milliseconds: 300),
+    ));
   }
 
   @override

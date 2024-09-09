@@ -50,29 +50,30 @@ class MyAppState extends State<MyApp> {
             }
           },
           theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.transparent,
-              titleTextStyle: TextStyle(
-                  color: lightGreen,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: "Moderustic"),
-            ),
-            textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                    foregroundColor: green,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 0.0, vertical: 0.0),
-                    textStyle: const TextStyle(
-                        fontFamily: "Moderustic",
-                        fontSize: 12,
-                        color: Colors.white))),
-            elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-              backgroundColor: green,
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-            )),
-            textTheme: const TextTheme(
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                titleTextStyle: TextStyle(
+                    color: lightGreen,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "Moderustic"),
+              ),
+              textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                      foregroundColor: green,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0.0, vertical: 0.0),
+                      textStyle: const TextStyle(
+                          fontFamily: "Moderustic",
+                          fontSize: 12,
+                          color: Colors.white))),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ElevatedButton.styleFrom(
+                backgroundColor: green,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+              )),
+              textTheme: const TextTheme(
                 titleLarge: TextStyle(
                     fontSize: 35,
                     color: Colors.white,
@@ -81,8 +82,13 @@ class MyAppState extends State<MyApp> {
                   fontFamily: 'Moderustic',
                   fontSize: 20,
                   color: lightGreen,
-                )),
-          ),
+                ),
+                bodySmall: TextStyle(
+                  fontFamily: 'Moderustic',
+                  fontSize: 15,
+                  color: lightGreen,
+                ),
+              )),
           home: Home(),
         ));
   }
