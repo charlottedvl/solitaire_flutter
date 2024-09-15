@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/providers/board_provider.dart';
+import 'package:solitaire/shared/utils.dart';
 
 class InfoBar extends StatefulWidget implements PreferredSizeWidget {
   const InfoBar({super.key});
@@ -18,6 +19,7 @@ class InfoBar extends StatefulWidget implements PreferredSizeWidget {
 
 class InfoBarState extends State<InfoBar> with WidgetsBindingObserver {
   BoardProvider? boardProvider;
+  CustomUtils utils = CustomUtils();
 
   @override
   void initState() {
@@ -50,12 +52,6 @@ class InfoBarState extends State<InfoBar> with WidgetsBindingObserver {
     }
   }
 
-  String formatTime(int totalSeconds) {
-    final minutes = totalSeconds ~/ 60;
-    final seconds = totalSeconds % 60;
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -66,7 +62,7 @@ class InfoBarState extends State<InfoBar> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text('Moves: ${boardProvider.counterMoves}'),
-              Text('Time: ${formatTime(boardProvider.elapsedSeconds)}'),
+              Text('Time: ${utils.formatTime(boardProvider.elapsedSeconds)}'),
             ],
           );
         },

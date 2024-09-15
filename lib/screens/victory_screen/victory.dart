@@ -7,6 +7,7 @@ import 'package:solitaire/screens/shared/screen_shape/title_button_screen.dart';
 import 'package:solitaire/shared/string_constants.dart';
 import 'package:solitaire/screens/shared/widget/button.dart';
 import 'package:solitaire/screens/shared/widget/custom_title.dart';
+import 'package:solitaire/shared/utils.dart';
 
 class VictoryView extends StatefulWidget {
   const VictoryView({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class VictoryView extends StatefulWidget {
 
 class VictoryViewState extends State<VictoryView> {
   late ConfettiController confettiController;
+  CustomUtils utils = CustomUtils();
 
   List<String> cards = [
     "you",
@@ -51,7 +53,27 @@ class VictoryViewState extends State<VictoryView> {
 
   List<Widget> getWidgets() {
     return [
-      CustomTitle(CONGRATS_EN, cards),
+      Column(
+        children: [
+          CustomTitle(CONGRATS_EN, cards),
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.01,
+          ),
+          Consumer<BoardProvider>(
+            builder: (context, boardProvider, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Moves: ${boardProvider.counterMoves}', style:
+                  Theme.of(context).textTheme.bodySmall,),
+                  Text('Time: ${utils.formatTime(boardProvider.elapsedSeconds)}', style:
+                  Theme.of(context).textTheme.bodySmall),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
       Column(
         children: [
           CustomButton(onPressed: playAgain, title: "Play Again"),
