@@ -10,7 +10,9 @@ import 'package:solitaire/screens/board_screen/components/deck_view.dart';
 
 class BoardView extends StatefulWidget {
   Board board;
-  BoardView({required Key key, required this.board}) : super(key: key);
+  final Function(bool) onTestResult;
+  BoardView({required Key key, required this.board, required this.onTestResult})
+      : super(key: key);
 
   @override
   BoardViewState createState() => BoardViewState();
@@ -51,6 +53,7 @@ class BoardViewState extends State<BoardView> {
       Map<String, dynamic> boardMap = board.toJson();
       board.previousBoard = boardMap;
     });
+    testIfAutocomplete();
   }
 
   void testIfFinish() {
@@ -59,6 +62,12 @@ class BoardViewState extends State<BoardView> {
         isGameFinished = true;
       });
       Navigator.pushReplacementNamed(context, '/victory');
+    }
+  }
+
+  void testIfAutocomplete() {
+    if (board.testIfAutocomplete()) {
+      widget.onTestResult(true);
     }
   }
 

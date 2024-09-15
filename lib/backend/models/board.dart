@@ -177,4 +177,17 @@ class Board {
     }
     return true;
   }
+
+  bool testIfAutocomplete() {
+    if ((displayDeck.length + nextCardsDeck.length) > 1 &&
+        (displayDeck.length > 1 || nextCardsDeck.length > 1)) {
+      return false;
+    }
+    for (ColumnCard columnCard in columns) {
+      if (columnCard.columnHiddenCard.length > 0) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
