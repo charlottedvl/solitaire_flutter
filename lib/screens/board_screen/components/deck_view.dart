@@ -21,7 +21,9 @@ class DeckView extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        saveMove();
+        if (nextCardsDeck.length > 0 || displayDeck.length > 0) {
+          saveMove();
+        }
         if (nextCardsDeck.getStack().isNotEmpty) {
           nextCardsDeck.addToDisplay(displayDeck);
         } else {
