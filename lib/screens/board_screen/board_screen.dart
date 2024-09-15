@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:solitaire/screens/board_screen/components/board_view.dart';
 import 'package:solitaire/screens/board_screen/components/info_bar.dart';
 import 'package:solitaire/screens/board_screen/components/tool_bar.dart';
+import 'package:solitaire/screens/shared/widget/button.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class BoardScreen extends StatefulWidget {
@@ -19,11 +20,18 @@ class BoardScreenState extends State<BoardScreen> {
   late Board board;
   int counterMoves = 0;
   Key boardKey = UniqueKey();
+  bool isAutocomplete = false;
 
   @override
   void initState() {
     board = widget.board;
     super.initState();
+  }
+
+  void handleTestResult(bool result) {
+    setState(() {
+      isAutocomplete = result;
+    });
   }
 
   void cancelMove() {
@@ -82,11 +90,29 @@ class BoardScreenState extends State<BoardScreen> {
               children: [
                 const InfoBar(),
                 Expanded(
-                  child: BoardView(key: boardKey, board: board),
+                  child: BoardView(
+                    key: boardKey,
+                    board: board,
+                    onTestResult: handleTestResult,
+                  ),
                 ),
               ],
             ),
           ),
+          isAutocomplete
+              ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.sizeOf(context).height * 0.01),
+                      child: CustomButton(
+                        width: 0.8,
+                        onPressed: () => {
+                          Navigator.pushReplacementNamed(context, '/victory')
+                        },
+                        title: "Skip to victory screen",
+                      )))
+              : Container(),
         ],
       ),
       bottomNavigationBar: ToolBar(
