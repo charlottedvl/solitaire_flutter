@@ -138,7 +138,7 @@ class Board {
     return columns;
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(int elapsedSeconds) {
     Map<String, dynamic> json = {
       'colors': colors.map((colorCard) => colorCard.toJson()).toList(),
       'nextCardsDeck': nextCardsDeck.toJson(),
@@ -147,6 +147,7 @@ class Board {
       'columns': columns.map((column) => column.toJson()).toList(),
       'previousBoard': previousBoard,
       'moves': moves,
+      'time': elapsedSeconds,
     };
     return json;
   }
