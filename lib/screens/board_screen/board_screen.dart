@@ -43,12 +43,8 @@ class BoardScreenState extends State<BoardScreen> {
         board = boardBeforeMove;
         boardKey = UniqueKey();
       });
-      print(
-          board.columns[0].columnDraggableCard.getStack()[0]?.value ?? "jkdf");
     } else {
-      //TODO: pop up
       showSnackBarUndo();
-      print("no previous move");
     }
   }
 
