@@ -3,9 +3,14 @@ import 'package:solitaire/screens/board_screen/widgets/tool_bar_button.dart';
 import 'package:solitaire/shared/constants.dart';
 
 class ToolBar extends StatelessWidget {
-  ToolBar({super.key, required this.cancelMove, required this.playAgain});
+  ToolBar(
+      {super.key,
+      required this.cancelMove,
+      required this.playAgain,
+      required this.hint});
   Function cancelMove;
   Function playAgain;
+  Function hint;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class ToolBar extends StatelessWidget {
             icon: const Icon(Icons.home),
           ),
           ToolBarButton(
-            action: () => {},
+            action: () => {hint()},
             label: "Hint",
             icon: const Icon(Icons.lightbulb),
           ),

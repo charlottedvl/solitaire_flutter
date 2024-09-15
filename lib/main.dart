@@ -75,9 +75,7 @@ class MyAppState extends State<MyApp> {
               )),
               textTheme: const TextTheme(
                 titleLarge: TextStyle(
-                    fontSize: 35,
-                    color: lightGreen,
-                    fontFamily: 'Moderustic'),
+                    fontSize: 35, color: lightGreen, fontFamily: 'Moderustic'),
                 bodyLarge: TextStyle(
                   fontFamily: 'Moderustic',
                   fontSize: 20,

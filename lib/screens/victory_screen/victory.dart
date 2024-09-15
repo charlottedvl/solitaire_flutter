@@ -64,10 +64,13 @@ class VictoryViewState extends State<VictoryView> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('Moves: ${boardProvider.counterMoves}', style:
-                  Theme.of(context).textTheme.bodySmall,),
-                  Text('Time: ${utils.formatTime(boardProvider.elapsedSeconds)}', style:
-                  Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    'Moves: ${boardProvider.counterMoves}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  Text(
+                      'Time: ${utils.formatTime(boardProvider.elapsedSeconds)}',
+                      style: Theme.of(context).textTheme.bodySmall),
                 ],
               );
             },
