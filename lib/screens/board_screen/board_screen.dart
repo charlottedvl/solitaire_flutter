@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/screens/board_screen/components/board_view.dart';
 import 'package:solitaire/screens/board_screen/components/info_bar.dart';
@@ -53,7 +53,7 @@ class BoardScreenState extends State<BoardScreen> {
   }
 
   void playAgain() {
-    context.read<BoardProvider>().reinitializeCounterMoves();
+    context.read<BoardProvider>().reinitializeInfos();
     setState(() {
       board = Board(false, null, null, null, null, null, null, null);
       boardKey = UniqueKey();

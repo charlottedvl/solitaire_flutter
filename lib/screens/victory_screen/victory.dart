@@ -2,7 +2,7 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:solitaire/screens/shared/screen_shape/title_button_screen.dart';
 import 'package:solitaire/shared/string_constants.dart';
 import 'package:solitaire/screens/shared/widget/button.dart';
@@ -41,7 +41,7 @@ class VictoryViewState extends State<VictoryView> {
 
   void playAgain() {
     context.read<BoardProvider>().clearSavedGame();
-    context.read<BoardProvider>().reinitializeCounterMoves();
+    context.read<BoardProvider>().reinitializeInfos();
     Navigator.pushNamed(
       context,
       '/board',

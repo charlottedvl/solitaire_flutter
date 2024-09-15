@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/models/colum_card.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:solitaire/screens/board_screen/components/column_card_view.dart';
 import 'package:solitaire/screens/board_screen/components/playing_card_deck_view.dart';
 import 'package:solitaire/screens/board_screen/components/colored_stack_view.dart';
@@ -50,7 +50,8 @@ class BoardViewState extends State<BoardView> {
   void saveMove() {
     context.read<BoardProvider>().increaseCounterMoves();
     setState(() {
-      Map<String, dynamic> boardMap = board.toJson();
+      Map<String, dynamic> boardMap =
+          board.toJson(boardProvider.elapsedSeconds);
       board.previousBoard = boardMap;
     });
     testIfAutocomplete();

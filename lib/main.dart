@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:solitaire/screens/board_screen/board_screen.dart';
 import 'package:solitaire/screens/home_screen/home.dart';
 import 'package:solitaire/screens/settings_screen/settings.dart';
