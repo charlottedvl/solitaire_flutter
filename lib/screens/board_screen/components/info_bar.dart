@@ -42,10 +42,11 @@ class InfoBarState extends State<InfoBar> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.inactive) {
-      context.watch<BoardProvider>().stopTimer();
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.detached) {
+      boardProvider?.stopTimer();
     } else if (state == AppLifecycleState.resumed) {
-      context.watch<BoardProvider>().startTimer();
+      boardProvider?.startTimer();
     }
   }
 
