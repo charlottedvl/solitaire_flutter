@@ -2,11 +2,12 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:solitaire/screens/shared/screen_shape/title_button_screen.dart';
 import 'package:solitaire/shared/string_constants.dart';
 import 'package:solitaire/screens/shared/widget/button.dart';
 import 'package:solitaire/screens/shared/widget/custom_title.dart';
+import 'package:solitaire/shared/utils.dart';
 
 class VictoryView extends StatefulWidget {
   const VictoryView({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class VictoryView extends StatefulWidget {
 
 class VictoryViewState extends State<VictoryView> {
   late ConfettiController confettiController;
+  CustomUtils utils = CustomUtils();
 
   List<String> cards = [
     "you",
@@ -41,20 +43,44 @@ class VictoryViewState extends State<VictoryView> {
 
   void playAgain() {
     context.read<BoardProvider>().clearSavedGame();
+    context.read<BoardProvider>().reinitializeInfos();
     Navigator.pushNamed(
       context,
       '/board',
-      arguments: Board(true, null, null, null, null, null, null),
+      arguments: Board(false, null, null, null, null, null, null, null),
     );
   }
 
   List<Widget> getWidgets() {
     return [
-      CustomTitle(CONGRATS_EN, cards),
+      Column(
+        children: [
+          CustomTitle(CONGRATS_EN, cards),
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.01,
+          ),
+          Consumer<BoardProvider>(
+            builder: (context, boardProvider, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'Moves: ${boardProvider.counterMoves}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  Text(
+                      'Time: ${utils.formatTime(boardProvider.elapsedSeconds)}',
+                      style: Theme.of(context).textTheme.bodySmall),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
       Column(
         children: [
           CustomButton(onPressed: playAgain, title: "Play Again"),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           CustomButton(

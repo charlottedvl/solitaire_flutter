@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:solitaire/screens/board_screen/board_screen.dart';
 import 'package:solitaire/screens/home_screen/home.dart';
 import 'package:solitaire/screens/settings_screen/settings.dart';
@@ -40,7 +40,7 @@ class MyAppState extends State<MyApp> {
               case '/home':
                 return MaterialPageRoute(builder: (context) => Home());
               case '/settings':
-                return MaterialPageRoute(builder: (context) => Settings());
+                return MaterialPageRoute(builder: (context) => VictoryView());
               case '/victory':
                 return MaterialPageRoute(builder: (context) => VictoryView());
               default:
@@ -50,27 +50,43 @@ class MyAppState extends State<MyApp> {
             }
           },
           theme: ThemeData(
-            textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                    foregroundColor: green,
-                    textStyle: const TextStyle(
-                      fontFamily: "Moderustic",
-                      fontSize: 12,
-                    ))),
-            elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: green,
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                    textStyle: const TextStyle(
-                      fontFamily: 'Moderustic',
-                      fontSize: 15,
-                      color: lightGreen,
-                    ))),
-            textTheme: const TextTheme(
-              titleLarge: TextStyle(
-                  fontSize: 35, color: Colors.white, fontFamily: 'Moderustic'),
-            ),
-          ),
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                titleTextStyle: TextStyle(
+                    color: lightGreen,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "Moderustic"),
+              ),
+              textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                      foregroundColor: green,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0.0, vertical: 0.0),
+                      textStyle: const TextStyle(
+                          fontFamily: "Moderustic",
+                          fontSize: 12,
+                          color: Colors.white))),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ElevatedButton.styleFrom(
+                backgroundColor: green,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+              )),
+              textTheme: const TextTheme(
+                titleLarge: TextStyle(
+                    fontSize: 35, color: lightGreen, fontFamily: 'Moderustic'),
+                bodyLarge: TextStyle(
+                  fontFamily: 'Moderustic',
+                  fontSize: 20,
+                  color: lightGreen,
+                ),
+                bodySmall: TextStyle(
+                  fontFamily: 'Moderustic',
+                  fontSize: 15,
+                  color: lightGreen,
+                ),
+              )),
           home: Home(),
         ));
   }

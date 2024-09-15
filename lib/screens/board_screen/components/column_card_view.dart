@@ -82,7 +82,7 @@ class ColumnCardViewState extends State<ColumnCardView> {
     final double width = screenWidth * 0.13;
     final double height = width / aspectRatio;
     double spacing = 25.0;
-    double totalHeight = 550;
+    double totalHeight = MediaQuery.of(context).size.height * 0.64;
     return SizedBox(
         height: totalHeight,
         width: 61.0,

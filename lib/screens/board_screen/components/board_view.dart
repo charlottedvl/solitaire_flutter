@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
 import 'package:solitaire/backend/models/colum_card.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:solitaire/screens/board_screen/components/column_card_view.dart';
 import 'package:solitaire/screens/board_screen/components/playing_card_deck_view.dart';
 import 'package:solitaire/screens/board_screen/components/colored_stack_view.dart';
@@ -10,7 +10,9 @@ import 'package:solitaire/screens/board_screen/components/deck_view.dart';
 
 class BoardView extends StatefulWidget {
   Board board;
-  BoardView({required Key key, required this.board}) : super(key: key);
+  final Function(bool) onTestResult;
+  BoardView({required Key key, required this.board, required this.onTestResult})
+      : super(key: key);
 
   @override
   BoardViewState createState() => BoardViewState();
@@ -18,7 +20,6 @@ class BoardView extends StatefulWidget {
 
 class BoardViewState extends State<BoardView> {
   // Number of move played by the player
-  int counter = 0;
   bool isGameFinished = false;
   late BoardProvider boardProvider;
   late Board board;
@@ -40,16 +41,20 @@ class BoardViewState extends State<BoardView> {
 
   @override
   void didChangeDependencies() {
+    setState(() {
+      boardProvider = context.read<BoardProvider>();
+    });
     super.didChangeDependencies();
-    boardProvider = context.read<BoardProvider>();
   }
 
   void saveMove() {
+    context.read<BoardProvider>().increaseCounterMoves();
     setState(() {
-      counter++;
-      Map<String, dynamic> boardMap = board.toJson();
+      Map<String, dynamic> boardMap =
+          board.toJson(boardProvider.elapsedSeconds);
       board.previousBoard = boardMap;
     });
+    testIfAutocomplete();
   }
 
   void testIfFinish() {
@@ -61,22 +66,26 @@ class BoardViewState extends State<BoardView> {
     }
   }
 
+  void testIfAutocomplete() {
+    if (board.testIfAutocomplete()) {
+      widget.onTestResult(true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    double paddingVertical = (MediaQuery.of(context).size.height) * 0.1;
+    double paddingVertical = (MediaQuery.of(context).size.height) * 0.01;
     double paddingHorizontal = (MediaQuery.of(context).size.width) * 0.007;
 
     final double screenWidth = MediaQuery.of(context).size.width;
     final double width = screenWidth * 0.13;
-
     return Padding(
-      padding: EdgeInsets.only(
-        top: paddingVertical,
-        left: paddingHorizontal,
-        right: paddingHorizontal,
-      ),
-      child: Column(
-        children: [
+        padding: EdgeInsets.only(
+          top: paddingVertical,
+          left: paddingHorizontal,
+          right: paddingHorizontal,
+        ),
+        child: Column(children: [
           Expanded(
             child: Column(
               children: [
@@ -87,11 +96,11 @@ class BoardViewState extends State<BoardView> {
                     DeckView(
                         nextCardsDeck: board.nextCardsDeck,
                         displayDeck: board.displayDeck,
-                        counter: counter,
+                        counter: board.moves,
                         saveMove: saveMove),
                     PlayingCardDeckView(
                       displayDeck: board.displayDeck,
-                      counter: counter,
+                      counter: board.moves,
                       saveMove: saveMove,
                     ),
                     SizedBox(
@@ -101,7 +110,7 @@ class BoardViewState extends State<BoardView> {
                       stacks: board.stacks,
                       saveMove: saveMove,
                       testIfFinish: testIfFinish,
-                      counter: counter,
+                      counter: board.moves,
                     ),
                   ],
                 ),
@@ -116,7 +125,7 @@ class BoardViewState extends State<BoardView> {
                         child: ColumnCardView(
                           saveMove: saveMove,
                           column: column,
-                          counter: counter,
+                          counter: board.moves,
                         ),
                       )
                     ]
@@ -125,8 +134,6 @@ class BoardViewState extends State<BoardView> {
               ],
             ),
           ),
-        ],
-      ),
-    );
+        ]));
   }
 }

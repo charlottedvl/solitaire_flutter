@@ -25,14 +25,18 @@ class Board {
 
   Map<String, dynamic>? previousBoard;
 
+  int moves = 0;
+
   Board(
-      bool isLoaded,
-      List<ColorCard>? colors,
-      Deck? nextCardsDeck,
-      Deck? displayDeck,
-      List<ColoredStack>? stacks,
-      List<ColumnCard>? columns,
-      this.previousBoard) {
+    bool isLoaded,
+    List<ColorCard>? colors,
+    Deck? nextCardsDeck,
+    Deck? displayDeck,
+    List<ColoredStack>? stacks,
+    List<ColumnCard>? columns,
+    this.previousBoard,
+    int? moves,
+  ) {
     if (colors != null) {
       this.colors = colors;
     } else {
@@ -71,6 +75,10 @@ class Board {
           7,
           (index) => ColumnCard(ColumnDraggableCard(<PlayingCard>[]),
               ColumnHiddenCard(<PlayingCard>[])));
+    }
+
+    if (moves != null) {
+      this.moves = moves;
     }
 
     // If the game is not loaded, then initialize the
@@ -130,7 +138,7 @@ class Board {
     return columns;
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(int elapsedSeconds) {
     Map<String, dynamic> json = {
       'colors': colors.map((colorCard) => colorCard.toJson()).toList(),
       'nextCardsDeck': nextCardsDeck.toJson(),
@@ -138,6 +146,8 @@ class Board {
       'stacks': stacks.map((stack) => stack.toJson()).toList(),
       'columns': columns.map((column) => column.toJson()).toList(),
       'previousBoard': previousBoard,
+      'moves': moves,
+      'time': elapsedSeconds,
     };
     return json;
   }
@@ -155,13 +165,27 @@ class Board {
         .map((columnJson) => ColumnCard.fromJson(columnJson))
         .toList();
     Map<String, dynamic>? previousBoard = json['previousBoard'];
+    int? moves = json['moves'];
     return Board(true, colors, nextCardsDeck, displayDeck, stacks, columns,
-        previousBoard);
+        previousBoard, moves);
   }
 
   bool testIfFinish() {
     for (ColoredStack stack in stacks) {
       if (stack.getStack().length != 13) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool testIfAutocomplete() {
+    if ((displayDeck.length + nextCardsDeck.length) > 1 &&
+        (displayDeck.length > 1 || nextCardsDeck.length > 1)) {
+      return false;
+    }
+    for (ColumnCard columnCard in columns) {
+      if (columnCard.columnHiddenCard.length > 0) {
         return false;
       }
     }

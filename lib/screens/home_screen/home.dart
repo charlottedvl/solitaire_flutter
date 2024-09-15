@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solitaire/backend/models/board.dart';
-import 'package:solitaire/backend/providers/boardProvider.dart';
+import 'package:solitaire/backend/providers/board_provider.dart';
 import 'package:solitaire/screens/home_screen/widget/game_button.dart';
 import 'package:solitaire/screens/shared/screen_shape/title_button_screen.dart';
+import 'package:solitaire/shared/constants.dart';
 import 'package:solitaire/shared/string_constants.dart';
 import 'package:solitaire/screens/shared/widget/custom_title.dart';
 
@@ -12,7 +13,7 @@ class Home extends StatelessWidget {
     super.key,
   });
 
-  Board board = Board(false, null, null, null, null, null, null);
+  Board board = Board(false, null, null, null, null, null, null, null);
   int selectedIndex = 0;
   List<String> cards = [
     "Ready",
