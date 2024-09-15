@@ -47,7 +47,7 @@ class BoardScreenState extends State<BoardScreen> {
           board.columns[0].columnDraggableCard.getStack()[0]?.value ?? "jkdf");
     } else {
       //TODO: pop up
-      showSnackBar();
+      showSnackBarUndo();
       print("no previous move");
     }
   }
@@ -60,11 +60,24 @@ class BoardScreenState extends State<BoardScreen> {
     });
   }
 
-  void showSnackBar() {
+  void showSnackBarUndo() {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Center(
         child: Text(
           "No previous moves",
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ),
+      backgroundColor: green,
+      duration: const Duration(milliseconds: 300),
+    ));
+  }
+
+  void showSnackBarHint() {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Center(
+        child: Text(
+          "This functionality isn't ready yet",
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ),
@@ -118,6 +131,7 @@ class BoardScreenState extends State<BoardScreen> {
       bottomNavigationBar: ToolBar(
         cancelMove: cancelMove,
         playAgain: playAgain,
+        hint: showSnackBarHint,
       ),
     );
   }
